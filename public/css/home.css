@@ -1,0 +1,514 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600&display=swap');
+
+
+*{
+	list-style: none;
+	font-family: 'Montserrat', sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body.dark{
+    --body-color: #18191A;
+    --nav-color: #242526;
+    --side-nav: #242526;
+    --text-color: #CCC;
+    --search-bar: #242526;
+}
+
+/* start darkmode */
+
+body.dark .Judul h1{
+    color: white;
+}
+
+
+body.dark .kategoris  a{
+    color: white;
+}
+body.dark .kategoris  a i{
+    color: white;
+}
+
+body.dark .vi_right > .name >a {
+    color: white;
+}
+body.dark .vi_right > .price  {
+    color: white;
+}
+
+
+
+body.dark .view_main{
+ background-color: #18191A;
+}
+body.dark .view_item{
+ background-color: #18191A;
+}
+
+
+/* end darkmode */
+
+
+.view_item img{
+	width: 100px;
+}
+
+
+.links{
+    padding: 20px;
+    margin-top: -50px;
+}
+
+
+.links ul li{
+    float: right;
+    margin: 0 2px;
+	font-size: 25px;
+	cursor: pointer;
+
+}
+
+.links ul li:hover, 
+.links ul li.active{
+	color: #4abd3e;
+    font-size: 28px;
+}
+
+.view_main{
+	background: #fff;
+	border-radius: 3px;
+	padding: 10px;
+
+}
+
+.list-view .view_item {
+	background: #fff;
+	border: 1px solid #e2efe1;
+	margin: 10px;
+	padding: 10px 20px;
+	display: flex;
+	align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+.list-view .view_item:last-child{
+	margin-bottom: 0;
+}
+
+.list-view .view_item .vi_left{
+	margin-right: 25px;
+}
+
+.view_item .name a{
+	font-weight: 600;
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+
+.view_item .price{
+	font-size: 18px;
+	font-weight: 200;
+}
+
+.view_item .btn{
+    margin-top: 5px;
+	width: 125px;
+	background: #4abd3e;
+	padding: 8px 5px;
+	border-radius: 5px;
+	color: #fff;
+	text-align: center;
+	font-weight: 200;
+	cursor: pointer;
+}
+
+
+.view_item .btn:hover{
+	background: #3bd62b;
+    color: white;
+}
+
+.grid-view{
+	width: 100%;
+}
+
+.grid-view .view_item {
+    
+	display: inline-block;
+    border: 1px solid #e2efe1;
+    width: 210px;
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    
+}
+
+.grid-view .view_item .vi_left{
+	margin-bottom: 10px;
+}
+
+.kategoris > a{
+    font-size: 20px;
+    font-weight: 300;
+    text-decoration: none;
+    color: black;
+  
+}
+.kategoris > a:hover{
+    text-decoration: none;
+    color: black;
+    padding: 5px;
+    padding-left: 10px;   
+    padding-right: 10px;
+    font-size: 20px;
+    background-color: #CCC;
+    border-radius: 10px;
+}
+
+.kategoris > a > i{
+   color: black;
+   margin-right: 5px;
+}
+.kategoris > a > i:hover{
+    color: rgb(0, 166, 61);
+  
+}
+
+
+            .dropdown>a{
+                font-family: 'Montserrat', sans-serif;
+                text-decoration: none;
+                position: relative;
+            }
+            .dropdown>a>h5{
+                text-transform: uppercase;
+                color: black;
+                font-weight: 700;
+                position: absolute;
+            }
+            .dropdown>a>span{
+                position: absolute;
+                left: 115px;
+                top: -1px;
+            }
+            .dropdown>a:hover{   
+                text-decoration: none;
+            }
+
+            ul.dropdown-menu.show{
+                margin: 100px;
+            }
+
+
+
+            a .fa {
+                font-size: 22px;
+            }
+
+            .sec-center{
+                background-color: rgba(240, 230, 140, 0.866);
+                height: 270px;
+                width: 200px;
+                padding: 10px;
+                font-size: 22px;
+                position: relative;
+                left: 20px;
+
+            }
+
+            .kategori{
+                position: absolute;
+                width: 200px;
+
+            }
+
+            .kategori ul{
+                position: absolute;
+                left: -30px;
+                top: 5px;
+            }
+        
+            .kategori ul li a{
+        
+                text-decoration: none;
+                list-style-type: none;
+                color: rgb(0, 0, 0);
+
+            }
+
+
+            hr{
+                position: absolute;
+                width: 180px;
+                left: 30px;
+                top: -22px;
+            }
+            
+            .category {
+                display: none;
+            }
+
+            .title{
+                display: none;
+            }
+            
+            .nav-menu{
+                display: none;
+            }
+    
+
+            .wrapper{
+                display: none;
+            }    
+        
+            
+@media screen and (max-width: 600px) {
+
+    span.logo.navLogo{
+        display: none;
+    }
+
+/* start darkmode */
+body.dark .judul2{
+    background-color: #18191A;
+    width:100%;
+    margin-top: 70px;
+    padding-top: 30px;
+}
+
+body.dark .judul2 > h1{
+    color: white;
+}
+             
+
+body.dark a.btn.makanan{
+    color: white;
+}
+body.dark a.btn.minuman{
+    color: white;
+}
+body.dark li.li-grid{
+    color: white;
+}
+body.dark li.li-list{
+    color: white;
+}
+
+/* start darkmode */
+
+                
+
+/* end darkmode */
+
+.container-fluid{
+    margin-top: 230px;
+                   
+}
+
+.judul2{
+    background-color: #ffffff;
+    width:100%;
+    margin-top: 70px;
+    padding-top: 30px;
+}
+                
+               
+ /* start conten */
+
+.view_item img{
+	width: 100px;
+}
+
+
+
+.links ul li:hover, 
+.links ul li.active{
+	color: #4abd3e;
+    font-size: 28px;
+}
+
+div.view_main{
+	background: #fff;
+	border-radius: 3px;
+    width: 100%;
+}
+
+.list-view .view_item {
+ 
+	background: #fff;
+	border: 1px solid #e2efe1;
+	margin: 10px;
+	padding: 10px 20px;
+	display: flex;
+	align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+.list-view .view_item:last-child{
+	margin-bottom: 0;
+}
+
+.list-view .view_item .vi_left{
+	margin-right: 25px;
+}
+
+.view_item .name a{
+	font-weight: 600;
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+
+.view_item .price{
+	font-size: 18px;
+	font-weight: 200;
+}
+
+.view_item .btn{
+    margin-top: 5px;
+	width: 125px;
+	background: #4abd3e;
+	padding: 8px 5px;
+	border-radius: 5px;
+	color: #fff;
+	text-align: center;
+	font-weight: 200;
+	cursor: pointer;
+}
+
+
+.view_item .btn:hover{
+	background: #3bd62b;
+    color: white;
+}
+
+.grid-view{
+	width: 100%;
+    
+}
+
+
+
+.grid-view .view_item {
+    
+    width: 150px;
+    height: 250px;
+
+}
+
+            .grid-view .view_item .vi_left{
+                margin-bottom: 10px;
+            }
+                            
+            .list-view{
+                display: block;
+            }
+            
+            /* div.card.list{
+                height: 120px;
+                width: 412px;
+                position: relative;
+                margin: 20px 0px;
+            }
+            div.card.list img{
+            position: absolute;
+            left: 10;
+
+            }
+          
+            div.card.list span.price{
+            position: absolute;
+            font-size: 20px;
+            top: 50px;
+            left: 120px;
+
+            }
+            div.card.list button.btn{
+            position: absolute;
+            width: 50px;
+            left: 350px;
+            bottom: 8px;
+            border-radius: 8px;
+            font-size: 25px;
+            }
+            div.card.list button.btn:hover{
+           color: white;
+            } */
+
+            
+            
+
+            /* end card view */
+
+              
+                 .title{
+                    display: block;
+                    margin-top: 100px;
+                    margin-bottom: -80px;
+                    text-align: center;
+                    justify-content: center;
+                }
+
+                div.category {
+                    position: relative;
+                    margin-top: 60px;
+                    display: block;   
+                    background-color: rgb(255, 255, 255);
+                    width: 255px;
+                 
+                }
+                
+                div.category a {
+                    
+                    display: inline-block;
+                    color: rgb(0, 0, 0);
+                    text-align: center;
+                    padding: 10px;
+                    text-decoration: none;
+                    border-radius: 10px;
+              
+                }
+                
+                a.btn.makanan {
+                    position: absolute;
+                    right: 145px;
+                }
+                a.btn.minuman {
+                    position: absolute;
+                    right: 40px;
+                }
+                
+                .links > ul{
+                  
+                    float: right;
+                   
+                }
+
+             
+                div.category a:hover {
+                    background-color: rgb(235, 237, 235);
+                
+                }
+                
+                .category a.btn{
+                        border-color: rgb(7, 201, 7);
+                        border-width: 2px;
+                    
+                }
+       
+
+                .wrapper{
+                    display: block;
+                    
+                }    
+                .col-md-12.py-5{
+                    display: none;
+                }
+
+            }

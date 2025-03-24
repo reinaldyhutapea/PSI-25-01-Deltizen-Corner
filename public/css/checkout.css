@@ -1,0 +1,53 @@
+
+.container-fluid{
+    position: relative;
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.card{
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    justify-content: center;
+    width: 66rem;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+}
+
+.box-footer{
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 600px) {
+/* dark */
+    
+body.dark .card{
+        background-color: #18191A;
+        border : 1.5px solid rgb(255, 255, 255);
+    }
+body.dark .card-header{
+    background-color: rgb(56, 56, 56);
+    color: white;
+}
+
+body.dark form .form-group label{
+    color: white;
+}
+
+/* dark */
+    span.logo.navLogo{
+        display: none;
+    }
+
+    .searchBox{
+        display: none;
+    }
+
+
+    .card{
+    width: 100%;
+}
+
+}
