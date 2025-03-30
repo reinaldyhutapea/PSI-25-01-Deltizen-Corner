@@ -28,7 +28,14 @@ class CreateProductsTable extends Migration{
      *
      * @return void
      */
-    public function down(){
-        Schema::dropIfExists('products');
-    }
+    public function down()
+{
+    Schema::disableForeignKeyConstraints(); // Matikan sementara foreign key check
+
+    Schema::dropIfExists('order_product'); // Hapus tabel terkait dulu
+    Schema::dropIfExists('products');      // Baru hapus tabel utama
+
+    Schema::enableForeignKeyConstraints(); // Aktifkan kembali foreign key check
+}
+
 }

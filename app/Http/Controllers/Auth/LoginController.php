@@ -34,7 +34,7 @@ class LoginController extends Controller
             return route('products.index');
         }
         elseif(auth()->user()->role == 'admin'){
-            return route('beranda');
+            return route('admin.dashboard');
         }
         elseif(auth()->user()->role == 'owner'){
             return route('owner.index');

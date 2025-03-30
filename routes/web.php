@@ -25,7 +25,6 @@ Route::post('cart', [CartController::class, 'addToCart'])->name('cart.store');
 Route::post('update-cart', [CartController::class, 'updateCart'])->name('cart.update');
 Route::post('remove', [CartController::class, 'removeCart'])->name('cart.remove');
 Route::post('clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
-Route::get('/dashboard', [BerandaController::class, 'productList2'])->name('beranda');
 Route::get('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 Route::post('/cart/bayar', [CartController::class, 'bayar'])->name('cart.bayar');
 Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
@@ -82,3 +81,19 @@ Route::get('/owner/data/pesanan',[OwnerController::class, 'pesananLaporan'])->na
 Route::get('/owner/laporan/cari',[OwnerController::class, 'cari']);
 Route::get('/owner/laporan/kategori',[OwnerController::class, 'kategori']);
 Route::get('/order/cetak_pertanggal/{tglawal}/{tglakhir}', [OwnerController::class, 'cetak'])->name('order.cetak_pertanggal');
+
+Route::prefix('admin')->group(function () {
+    Route::get('/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/login', [AdminController::class, 'login']);
+    Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('/profil', [AdminController::class, 'profil'])->name('admin.profil');
+        Route::post('/profil/change_password', [AdminController::class, 'store'])->name('admin.password');
+    });
+});
+
+
+
+

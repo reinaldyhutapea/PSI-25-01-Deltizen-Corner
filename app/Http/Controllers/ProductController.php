@@ -14,7 +14,7 @@ class ProductController extends Controller{
         $title = 'Master Product';
         $products = Product::orderBy('name','asc')->get();
         $categories = Category::orderBy('name','asc')->get();
-        return view('products.index', compact('title','products','categories'));
+        return view('admin.products.index', compact('title','products','categories'));
     }
     public function create(){
         $title = 'Create Product';
