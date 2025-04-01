@@ -30,7 +30,11 @@
   <nav >
     <div class="nav-bar" >
         <i class='bx bx-menu sidebarOpen' ></i>
-        <span class="logo navLogo"><a href="/home">Deltizen Corner</a></span>
+        <span class="logo navLogo"><a href="/home">
+          <img src="{{ asset('logo_deltizen.png') }}" alt="Deltizen Corner" style="height: 70px;">
+        </a>
+      </span>
+</a></span>
 
         <div class="menu" style="justify-content: center;justify-content: center;">
             <div class="logo-toggle">
@@ -39,11 +43,11 @@
             </div>
 
             <ul class="nav-links" >
-                <li><a href="/home">Home</a></li>
+                <li><a href="/home">Menu</a></li>
                 <li class="cart"><a href="{{ route('cart.list')}}">Keranjang</a></li>
                 <li class="cart"><a href="{{ route('invoice.list')}}">Pesanan</a></li>
-                <li><a href="/tentang">Tentang</a></li>
-                <li><a href="/kontak">Kontak</a></li>
+                <li><a href="/tentang">Pembayaran</a></li>
+                <li><a href="/kontak">Status Pesanan</a></li>
                 <li class="logout"><a href="{{ route('logout.perform') }}">Logout</a></li>
             </ul>
         </div>
@@ -55,10 +59,7 @@
           </a>
           </div>
 
-            <div class="dark-light">
-                <i class='bx bx-moon moon'></i>
-                <i class='bx bx-sun sun'></i>
-            </div>
+            <div class="dark-light"></div>
 
             <div class="searchBox">
                <div class="searchToggle">
@@ -99,14 +100,32 @@
        @yield('content')
       
     </main>
-{{-- 
-    <footer class="container" style="background-color: #f2f2f5">
-        <div class="row">
-            <div class="col-12 py-4" style="color: #adb5bd">
-                &copy; 2021 Tutorial Bootstrap
-            </div>
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="logo">
+          <img src="{{ asset('logo_deltizen.png') }}" class="logo-img">
         </div>
-    </footer> --}}
+        <div class="contact-us">
+          <h3>Contact Us</h3>
+          <p>
+            <img src="{{ asset('email.png') }}" alt="Email" class="icon"> delitzencorner@gmail.com
+          </p>
+          <p>
+            <img src="{{ asset('phone.png') }}" alt="Phone" class="icon"> +6281360912900
+          </p>
+        </div>
+        <div class="social-media">
+          <h3>Sosial Media</h3>
+          <p>
+            <img src="{{ asset('instagram.png') }}" alt="Instagram" class="icon"> deltizencorner
+          </p>
+          <p>
+            <img src="{{ asset('facebook.png') }}" alt="Facebook" class="icon"> deltizencorner
+          </p>
+        </div>
+      </div>
+      <p class="copyright">Copyright &copy; DeltizenCorner, Inc.</p>
+    </footer>
 
 </body>
 

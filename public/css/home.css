@@ -152,119 +152,131 @@ body.dark .view_item{
 	margin-bottom: 10px;
 }
 
-.kategoris > a{
-    font-size: 20px;
-    font-weight: 300;
-    text-decoration: none;
-    color: black;
-  
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-.kategoris > a:hover{
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.wawa-story {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    gap: 50px;
+    padding: 50px;
+}
+
+.text-content {
+    flex: 1;
+    max-width: 500px;
+}
+
+.text-content h1 {
+    font-size: 48px;
+    font-weight: bold;
+    color: #222;
+}
+
+.text-content p {
+    font-size: 18px;
+    color: #444;
+    margin-top: 10px;
+    line-height: 1.5;
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
     text-decoration: none;
-    color: black;
-    padding: 5px;
-    padding-left: 10px;   
-    padding-right: 10px;
-    font-size: 20px;
-    background-color: #CCC;
+    color: white;
+    background-color: #D52B1E;
+    padding: 10px 20px;
     border-radius: 10px;
+    margin-right: 10px;
+    transition: background-color 0.3s ease-in-out, transform 0.2s;
 }
 
-.kategoris > a > i{
-   color: black;
-   margin-right: 5px;
-}
-.kategoris > a > i:hover{
-    color: rgb(0, 166, 61);
-  
+.btn:hover {
+    background-color: #B2221A;
+    transform: scale(1.1);
 }
 
+.image-content {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-            .dropdown>a{
-                font-family: 'Montserrat', sans-serif;
-                text-decoration: none;
-                position: relative;
-            }
-            .dropdown>a>h5{
-                text-transform: uppercase;
-                color: black;
-                font-weight: 700;
-                position: absolute;
-            }
-            .dropdown>a>span{
-                position: absolute;
-                left: 115px;
-                top: -1px;
-            }
-            .dropdown>a:hover{   
-                text-decoration: none;
-            }
+.circle-background {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background-color: #FFD966;
+    border-radius: 50%;
+    z-index: 1;
+}
 
-            ul.dropdown-menu.show{
-                margin: 100px;
-            }
+.staff-image {
+    position: absolute;
+    top: -40px;
+    left: -50px;
+    width: 150px;
+    z-index: 2;
+}
 
+.store-image {
+    width: 300px;
+    z-index: 2;
+}
 
+.food-image {
+    position: absolute;
+    bottom: -20px;
+    right: -40px;
+    width: 180px;
+    z-index: 2;
+}
 
-            a .fa {
-                font-size: 22px;
-            }
+@media (max-width: 900px) {
+    .wawa-story {
+        flex-direction: column;
+        text-align: center;
+    }
 
-            .sec-center{
-                background-color: rgba(240, 230, 140, 0.866);
-                height: 270px;
-                width: 200px;
-                padding: 10px;
-                font-size: 22px;
-                position: relative;
-                left: 20px;
+    .text-content {
+        max-width: 100%;
+    }
 
-            }
+    .buttons {
+        display: flex;
+        justify-content: center;
+    }
 
-            .kategori{
-                position: absolute;
-                width: 200px;
+    .btn {
+        margin: 10px;
+    }
 
-            }
+    .image-content {
+        flex-direction: column;
+    }
+}
 
-            .kategori ul{
-                position: absolute;
-                left: -30px;
-                top: 5px;
-            }
-        
-            .kategori ul li a{
-        
-                text-decoration: none;
-                list-style-type: none;
-                color: rgb(0, 0, 0);
-
-            }
-
-
-            hr{
-                position: absolute;
-                width: 180px;
-                left: 30px;
-                top: -22px;
-            }
-            
-            .category {
-                display: none;
-            }
-
-            .title{
-                display: none;
-            }
-            
-            .nav-menu{
-                display: none;
-            }
-    
-
-            .wrapper{
-                display: none;
-            }    
         
             
 @media screen and (max-width: 600px) {
@@ -277,8 +289,8 @@ body.dark .view_item{
 body.dark .judul2{
     background-color: #18191A;
     width:100%;
-    margin-top: 70px;
-    padding-top: 30px;
+    margin-top: 100px;
+    padding-top: 100px;
 }
 
 body.dark .judul2 > h1{

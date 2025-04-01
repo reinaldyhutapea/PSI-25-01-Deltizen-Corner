@@ -84,19 +84,25 @@
       </div>
     </body>
 
-        <div class="col-md-12 py-5">
-          <div class="Judul">
-            <h1> Daftar Menu</h1>
-          </div>
-          
-          <div class="kategoris">
-            <a href="/home">Semua</a>
-            |
-            <a href="/home/makanan"><i class='bx bx-bowl-hot'></i>Makanan</a>
-            |
-            <a href="/home/minuman"><i class='bx bxs-drink' ></i>Minuman</a>
-         
-          </div>
+        <body>
+    <section class="wawa-story">
+        <div class="text-content">
+            <h1>The Wawa Story</h1>
+            <p>Wawa is a privately held, family-owned company with 200+ years in American business. Our story is rooted in values, driven by purpose, and bound for growth.</p>
+            
+            <div class="buttons">
+                <a href="/home/makanan" class="btn">Makanan</a>
+                <a href="/home/minuman" class="btn">Minuman</a>
+            </div>
+        </div>
+        <div class="image-content">
+            <div class="circle-background"></div>
+            <img src="staff.png" alt="Wawa Staff" class="staff-image">
+            <img src="store.png" alt="Wawa Store" class="store-image">
+            <img src="food.png" alt="Wawa Food" class="food-image">
+        </div>
+    </section>
+</body>
         
 
           <div class="view_wrap grid-view"  style="margin-top: 30px;" >

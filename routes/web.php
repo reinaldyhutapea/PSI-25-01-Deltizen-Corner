@@ -13,13 +13,18 @@ use App\Http\Controllers\ConfirmAdminController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\AdminController;
+
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 Auth::routes();
 Route::get('/logout', [LogoutController::class, 'perform'])->name('logout.perform');
+
+//--home--
 Route::get('/home', [HomeController::class, 'index'])->name('products.index');
 Route::get('/home/cari', [HomeController::class, 'cari'])->name('products.cari');
 Route::get('/home/makanan', [HomeController::class, 'makanan'])->name('products.makanan');
 Route::get('/home/minuman', [HomeController::class, 'minuman'])->name('products.minuman');
+
+//--cart--
 Route::get('cart', [CartController::class, 'cartList'])->name('cart.list');
 Route::post('cart', [CartController::class, 'addToCart'])->name('cart.store');
 Route::post('update-cart', [CartController::class, 'updateCart'])->name('cart.update');
@@ -27,9 +32,13 @@ Route::post('remove', [CartController::class, 'removeCart'])->name('cart.remove'
 Route::post('clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
 Route::get('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 Route::post('/cart/bayar', [CartController::class, 'bayar'])->name('cart.bayar');
+
+//--invoice--
 Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
 Route::get('/invoice/list', [InvoiceController::class, 'list'])->name('invoice.list');
 Route::get('/invoice/detail/{id}', [InvoiceController::class, 'detail'])->name('invoice.detail');
+
+//--product--
 Route::get('/product', [ProductController::class, 'index'])->name('product.index');
 Route::get('/product/stoks/{id}', [ProductController::class, 'changeStoks'])->name('change.stoks');
 Route::get('/product/data', [ProductController::class, 'produkData'])->name('product2.data');
@@ -40,6 +49,8 @@ Route::post('/product/update/{id}', [ProductController::class, 'update'])->name(
 Route::get('/product/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 Route::get('/product/detail/{id}', [ProductController::class, 'detail'])->name('product.detail');
 Route::get('/product/detail_front/{id}', [HomeController::class, 'detail_front'])->name('product.detail_front');
+
+//--categories--
 Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
 Route::get('/categories/create', [CategoryController::class, 'create'])->name('category.create');
 Route::post('/categories/store', [CategoryController::class, 'store'])->name('category.store');
@@ -47,21 +58,29 @@ Route::get('/categories/edit/{id}', [CategoryController::class, 'edit'])->name('
 Route::post('/categories/update/{id}', [CategoryController::class, 'update'])->name('category.update');
 Route::get('/categories/destroy/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 Route::get('/categories/detail/{id}', [CategoryController::class, 'detail'])->name('category.detail');
+
+//--confirm--
 Route::get('/confirmAdmin', [ConfirmAdminController::class, 'index'])->name('confirmAdmin');
 Route::get('/confirmAdmin/detail/{id}', [ConfirmAdminController::class, 'detail'])->name('confirmAdmin.detail');
 Route::get('/confirmAdmin/terima/{order_id}', [ConfirmAdminController::class, 'terima'])->name('confirmAdmin.terima');
 Route::get('/confirmAdmin/tolak/{order_id}', [ConfirmAdminController::class, 'tolak'])->name('confirmAdmin.tolak');
 Route::get('/confirm/{id}', [ConfirmController::class, 'index'])->name('confirm.index');
 Route::post('/confirm/store', [ConfirmController::class, 'store'])->name('confirm.store');
+
+//--order--
 Route::get('/order', [OrderController::class, 'index'])->name('order.index');
 Route::get('/order/data', [OrderController::class, 'produkData'])->name('order.data');
 Route::get('/order/record', [OrderController::class, 'Records'])->name('order.record');
 Route::get('/order/cetak', [OrderController::class, 'cetak'])->name('order.cetak');
 Route::get('/order/detail/{id}', [OrderController::class, 'detail'])->name('order.detail');
+
+//--Admin--
 Route::get('/admin/profil',[AdminController::class, 'profil'])->name('admin.profil');
 Route::post('/admin/profil/change_password',[AdminController::class, 'store'])->name('admin.password');
 Route::get('/tentang',[HomeController::class, 'tentang']);
 Route::get('/kontak',[HomeController::class, 'kontak']);
+
+//--Owner--
 Route::get('/owner/index',[OwnerController::class, 'index0'])->name('owner.index');
 Route::get('/owner/profil',[OwnerController::class, 'profil'])->name('owner.profil');
 Route::post('/owner/profil/change_password',[OwnerController::class, 'store'])->name('change.password');
@@ -93,7 +112,3 @@ Route::prefix('admin')->group(function () {
         Route::post('/profil/change_password', [AdminController::class, 'store'])->name('admin.password');
     });
 });
-
-
-
-

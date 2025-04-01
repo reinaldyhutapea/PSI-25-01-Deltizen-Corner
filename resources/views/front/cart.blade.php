@@ -1,4 +1,4 @@
-  @extends('layouts.frontend')
+@extends('layouts.frontend')
   <head>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" >
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -36,7 +36,7 @@
                 <tr>
                   <td>
                     <a class="image-active" href="#">
-                      <img src="{{ $item->attributes->image }}" alt="Thumbnail">
+                      <img class="cartImg"src="{{ $item->attributes->image }}" alt="Thumbnail">
                     </a>
                   </td>
                   <td>
@@ -104,7 +104,7 @@
       @foreach ($cartItems as $item)
       <div class="card2">
         <div class="left">
-          <img src="{{ $item->attributes->image }}" alt="Thumbnail">
+          <img class="cartImg" src="{{ $item->attributes->image }}" alt="Thumbnail">
         </div>
         <div class="right">
           <h3 style="font-weight: 600;font-size: 20px;margin-bottom: 3px;">{{ $item->name }}</h3>
