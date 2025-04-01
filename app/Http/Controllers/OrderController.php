@@ -11,17 +11,17 @@ class OrderController extends Controller{
     }
     public function index(){
         $orders = Order::orderBy('id','desc')->get();
-        return view('order.index', compact('orders'));
+        return view('admin.order.index', compact('orders'));
     }
     public function detail($id){
         $details = Order_Product::where('order_id',$id)->get();
         $identity = Order_Product::where('order_id',$id)->first();
         $id = DB::table('order_product')
         ->select('order_id')->get();
-        return view('order.detail', compact('details', 'identity','id'));
+        return view('admin.order.detail', compact('details', 'identity','id'));
     }
     public function cetak(){
-        return view('order.cetak_laporan');
+        return view('admin.order.cetak_laporan');
     }
     public function cetak_pertanggal($tglawal, $tglakhir){
         $Tglawal = $tglawal;
@@ -32,7 +32,7 @@ class OrderController extends Controller{
         $sum = Order::whereBetween('date',[$tglawal,$tglakhir])
         ->where('status','=','dibayar')
         ->sum('total_price');
-       return view('order.laporan_tercetak', compact('orders','Tglawal','Tglakhir','sum'));
+       return view('admin.order.laporan_tercetak', compact('orders','Tglawal','Tglakhir','sum'));
     }
     public function produkData (Request $request){
         if (request()->ajax()){

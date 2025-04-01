@@ -97,7 +97,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="{{ route('beranda') }}" class="nav-link">
+            <a href="{{ url('/admin/dashboard') }}" class="nav-link">
               <i class="fa-solid fa-gauge"></i>
               <p>
                 Dashboard
