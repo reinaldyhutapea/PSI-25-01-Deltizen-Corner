@@ -19,10 +19,10 @@ Auth::routes();
 Route::get('/logout', [LogoutController::class, 'perform'])->name('logout.perform');
 
 //--home--
-Route::get('/home', [HomeController::class, 'index'])->name('products.index');
-Route::get('/home/cari', [HomeController::class, 'cari'])->name('products.cari');
-Route::get('/home/makanan', [HomeController::class, 'makanan'])->name('products.makanan');
-Route::get('/home/minuman', [HomeController::class, 'minuman'])->name('products.minuman');
+Route::get('/menu', [HomeController::class, 'all'])->name('products.index');
+Route::get('/menu/makanan', [HomeController::class, 'makanan'])->name('products.makanan');
+Route::get('/menu/minuman', [HomeController::class, 'minuman'])->name('products.minuman');
+Route::get('/menu/cari', [HomeController::class, 'cari'])->name('products.cari');
 
 //--cart--
 Route::get('cart', [CartController::class, 'cartList'])->name('cart.list');

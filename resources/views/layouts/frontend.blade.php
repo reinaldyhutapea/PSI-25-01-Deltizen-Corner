@@ -30,7 +30,7 @@
   <nav >
     <div class="nav-bar" >
         <i class='bx bx-menu sidebarOpen' ></i>
-        <span class="logo navLogo"><a href="/home">
+        <span class="logo navLogo"><a href="/">
           <img src="{{ asset('logo_deltizen.png') }}" alt="Deltizen Corner" style="height: 70px;">
         </a>
       </span>
@@ -38,17 +38,18 @@
 
         <div class="menu" style="justify-content: center;justify-content: center;">
             <div class="logo-toggle">
-                <span class="logo"><a href="/home">Deltizen Corner</a></span>
+                <span class="logo"><a href="/">Deltizen Corner</a></span>
                 <i class='bx bx-x siderbarClose'></i>
             </div>
 
             <ul class="nav-links" >
-                <li><a href="/home">Menu</a></li>
-                <li class="cart"><a href="{{ route('cart.list')}}">Keranjang</a></li>
-                <li class="cart"><a href="{{ route('invoice.list')}}">Pesanan</a></li>
-                <li><a href="/tentang">Pembayaran</a></li>
-                <li><a href="/kontak">Status Pesanan</a></li>
-                <li class="logout"><a href="{{ route('logout.perform') }}">Logout</a></li>
+              <li><a href="/">Home</a></li>
+              <li><a href="/menu">Menu</a></li>
+              <li class="cart"><a href="{{ route('cart.list')}}">Keranjang</a></li>
+              <li class="cart"><a href="{{ route('invoice.list')}}">Pesanan</a></li>
+              <li><a href="/tentang">Pembayaran</a></li>
+              <li><a href="/kontak">Status Pesanan</a></li>
+              <li class="logout"><a href="{{ route('logout.perform') }}">Logout</a></li>
             </ul>
         </div>
 

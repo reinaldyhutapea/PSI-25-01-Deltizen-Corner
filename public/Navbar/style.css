@@ -14,7 +14,7 @@
 /* ===== Colours ===== */
 :root {
     --body-color: #ffffff;
-    --nav-color: #05D5BD;
+    --nav-color: #4C6E50;
     --side-nav: #010718;
     --text-color: #FFF;
     --search-bar: #F2F2F2;
@@ -356,10 +356,10 @@ li.logout {
     margin-top: auto;
 } */
 .footer {
-    background-color: #05D5BD;
+    background-color: #4C6E50;
     padding: 30px 10%;
     text-align: center;
-    color: black;
+    color: rgb(255, 255, 255);
 }
 
 .footer-content {
