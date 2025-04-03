@@ -70,15 +70,14 @@ Route::post('/confirm/store', [ConfirmController::class, 'store'])->name('confir
 //--order--
 Route::get('/order', [OrderController::class, 'index'])->name('order.index');
 Route::get('/order/data', [OrderController::class, 'produkData'])->name('order.data');
-Route::get('/order/record', [OrderController::class, 'Records'])->name('order.record');
+Route::get('/order/record', [OrderController::class, 'records'])->name('order.record');
 Route::get('/order/cetak', [OrderController::class, 'cetak'])->name('order.cetak');
 Route::get('/order/detail/{id}', [OrderController::class, 'detail'])->name('order.detail');
 
 //--Admin--
 Route::get('/admin/profil',[AdminController::class, 'profil'])->name('admin.profil');
 Route::post('/admin/profil/change_password',[AdminController::class, 'store'])->name('admin.password');
-Route::get('/tentang',[HomeController::class, 'tentang']);
-Route::get('/kontak',[HomeController::class, 'kontak']);
+Route::get('/pembayaran',[HomeController::class, 'pembayaran']);
 
 //--Owner--
 Route::get('/owner/index',[OwnerController::class, 'index0'])->name('owner.index');

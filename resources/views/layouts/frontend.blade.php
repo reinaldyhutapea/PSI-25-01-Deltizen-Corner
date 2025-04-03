@@ -45,10 +45,9 @@
             <ul class="nav-links" >
               <li><a href="/">Home</a></li>
               <li><a href="/menu">Menu</a></li>
+              <li><a href="/pembayaran">Pembayaran</a></li>              
+              <li ><a href="{{ route('invoice.list')}}">Status Pesanan</a></li>
               <li class="cart"><a href="{{ route('cart.list')}}">Keranjang</a></li>
-              <li class="cart"><a href="{{ route('invoice.list')}}">Pesanan</a></li>
-              <li><a href="/tentang">Pembayaran</a></li>
-              <li><a href="/kontak">Status Pesanan</a></li>
               <li class="logout"><a href="{{ route('logout.perform') }}">Logout</a></li>
             </ul>
         </div>
@@ -56,7 +55,6 @@
         <div class="darkLight-searchBox">
           <div class="order">
             <a href="{{ route('invoice.list')}}">
-            <i class='bx bx-shopping-bag' style='color:#fffdfd;'></i>
           </a>
           </div>
 

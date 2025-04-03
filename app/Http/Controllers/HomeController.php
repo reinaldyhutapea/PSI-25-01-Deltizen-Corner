@@ -42,10 +42,7 @@ class HomeController extends Controller{
         $product = Product::findOrFail($id);
         return view('front.detail_product',compact('product'));
     }
-    public function tentang(){
-        return view('front.tentang');
-    }
-    public function kontak(){
-        return view('front.kontak');
+    public function pembayaran(){
+        return view('front.pembayaran');
     }
 }

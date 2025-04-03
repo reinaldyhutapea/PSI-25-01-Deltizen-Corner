@@ -89,11 +89,6 @@
                             </td>
                         </tr>
                     @endforeach
-
-                    <tr>
-                        <td colspan="4" align="center" style="font-size: medium">Total</td>
-                        <td style="font-size: medium">Rp. {{ number_format($detail->order->total_price,0) }}</td>
-                    </tr>
                 </table>
             </div>
         </div>

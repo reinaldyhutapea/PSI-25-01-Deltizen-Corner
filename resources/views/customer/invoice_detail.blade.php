@@ -1,4 +1,4 @@
-    @extends('layouts.frontend')
+@extends('layouts.frontend')
     <!doctype html>
     <html>
     <head>
@@ -64,9 +64,6 @@
                     </div>
                 @endforeach
             </div>
-            <h3 style="margin-left: 170px;">Total : 
-                Rp. {{ number_format($detail->subtotal,0) }}
-            </h3>
         </div>
         <div class="card-footer">
   

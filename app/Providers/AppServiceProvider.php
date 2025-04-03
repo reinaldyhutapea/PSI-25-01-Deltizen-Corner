@@ -24,8 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-      
-        Paginator::useBootstrap();
+        // Cek apakah visitor_id sudah ada di session, jika belum buat yang baru
+        if (!session()->has('visitor_id')) {
+            session(['visitor_id' => uniqid('visitor_', true)]);
+        }
     }
 }
