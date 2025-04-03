@@ -25,7 +25,7 @@
                 <td>{{ $order->date }}</td>
                 <td>{{ $order->detail_status }}</td>
             </tr>
-            @endforeach
+            @endforeach 
         </tbody>
     </table>
     @endif
