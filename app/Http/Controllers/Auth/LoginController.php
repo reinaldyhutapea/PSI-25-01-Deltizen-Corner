@@ -3,51 +3,85 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
-    use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
-    
-    protected function redirectTo() {
-        if (Auth()->user()->role == 'customer'){
-            return route('products.index');
-        }
-        elseif(auth()->user()->role == 'admin'){
-            return route('admin.dashboard');
-        }
-        elseif(auth()->user()->role == 'owner'){
-            return route('owner.index');
-        }
+    public function showCustomerLoginForm()
+    {
+        return view('auth.login-customer');
     }
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function customerLogin(Request $request)
     {
-        $this->middleware('guest')->except('logout');
+        $this->validateLogin($request);
+
+        if (Auth::attempt($request->only('email', 'password'))) {
+            if (Auth::user()->role === 'customer') {
+                return redirect('/menu');
+            } else {
+                Auth::logout();
+                return back()->withErrors(['email' => 'Akun ini bukan customer.']);
+            }
+        }
+
+        return back()->withErrors(['email' => 'Email atau password salah.']);
+    }
+
+    public function showAdminLoginForm()
+    {
+        return view('auth.login-admin');
+    }
+
+    public function adminLogin(Request $request)
+    {
+        $this->validateLogin($request);
+
+        if (Auth::attempt($request->only('email', 'password'))) {
+            if (Auth::user()->role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            } else {
+                Auth::logout();
+                return back()->withErrors(['email' => 'Akun ini bukan admin.']);
+            }
+        }
+
+        return back()->withErrors(['email' => 'Email atau password salah.']);
+    }
+
+    public function showOwnerLoginForm()
+    {
+        return view('auth.login-owner');
+    }
+
+    public function ownerLogin(Request $request)
+    {
+        $this->validateLogin($request);
+
+        if (Auth::attempt($request->only('email', 'password'))) {
+            if (Auth::user()->role === 'owner') {
+                return redirect()->route('owner.index');
+            } else {
+                Auth::logout();
+                return back()->withErrors(['email' => 'Akun ini bukan owner.']);
+            }
+        }
+
+        return back()->withErrors(['email' => 'Email atau password salah.']);
+    }
+
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string|min:8',
+        ]);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect('/');
     }
 }

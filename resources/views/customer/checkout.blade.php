@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label>Nama</label>
-                        <input type="text" class="form-control " id="name" name="name" placeholder="Masukkan Nama Pemesan" value="{{ Auth::user()->name  }}" autofocus required>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan Nama Pemesan" required>                    
                     </div>
                     <br>
                     <div class="form-group">

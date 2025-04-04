@@ -79,16 +79,20 @@
       </div>
 
         <div class="action">
-          <form class="btn1" action="{{ route('cart.checkout') }}" method="GET">
-            @csrf
-            <button id="btn2" class="btn" style="color: white">Checkout</button>
-          </form>
+        @auth
+        <form class="btn1" action="{{ route('cart.checkout') }}" method="GET">
+        @csrf
+        <button type="submit" class="btn" style="color: white">Checkout</button>
+        </form>
+        @else
+      <button type="button" id="checkoutBtn" class="btn btn-primary" style="color: white">Checkout</button>
+        @endauth
           <form class="btn2" action="{{ route('cart.clear') }}" method="POST">
             @csrf
             <button id="btn1" class="btn" style="color: white"><i style="font-size: 24px" class="fa-regular fa-trash-can" aria-hidden="true"></i></button>
           </form>
       </div>
-      <a href="/home" style="text-decoration: none; font-size: 16px; background-color: rgb(54, 64, 255);width: 169px;padding: 8px;color: white;border-radius: 5px;text-align: center;" ><i class="fa-solid fa-arrow-left" style="margin-right: 5px;" aria-hidden="true"></i>Lanjut Belanja</a>
+      <a href="/" style="text-decoration: none; font-size: 16px; background-color: rgb(54, 64, 255);width: 169px;padding: 8px;color: white;border-radius: 5px;text-align: center;" ><i class="fa-solid fa-arrow-left" style="margin-right: 5px;" aria-hidden="true"></i>Lanjut Belanja</a>
         
   {{-- starts v2 --}}
 
@@ -139,10 +143,16 @@
       
       </div>
       <div class="action" style="margin-top: 30px;padding: 10px;">
-        <form class="btn1" action="{{ route('cart.checkout') }}" method="GET">
-          @csrf
-          <button id="btn2" class="btn" style="color: white">Checkout</button>
-        </form>
+      @auth
+    {{-- Jika sudah login, langsung submit form ke checkout --}}
+    <form class="btn1" action="{{ route('cart.checkout') }}" method="GET">
+        @csrf
+        <button type="submit" class="btn" style="color: white">Checkout</button>
+    </form>
+      @else
+    {{-- Jika belum login, tampilkan tombol untuk trigger modal --}}
+    <button type="button" id="checkoutBtn" class="btn btn-primary" style="color: white">Checkout</button>
+      @endauth
         <form class="btn2" action="{{ route('cart.clear') }}" method="POST">
           @csrf
           <button id="btn1" class="btn" style="color: white"><i style="font-size: 24px" class="fa-regular fa-trash-can" aria-hidden="true"></i></button>
@@ -153,9 +163,47 @@
       </div>
       
   </div>
+
+  @guest
+<!-- Modal Pilihan Checkout -->
+<div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <h5 class="modal-title" id="checkoutModalLabel">Lanjutkan Checkout Sebagai</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <a href="{{ route('cart.checkout') }}" class="btn btn-primary btn-block mb-2">Tamu</a>
+        <a href="{{ route('customer.login') }}" class="btn btn-secondary btn-block">Login</a>
+      </div>
+    </div>
+  </div>
+</div>
+@endguest
+
+
   @endsection
   <script>
     $("#qty").bind('keyup mouseup', function () {
       alert("changed");            
   });
   </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+@guest
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('#checkoutBtn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        $('#checkoutModal').modal('show');
+      });
+    });
+  });
+</script>
+@endguest
+

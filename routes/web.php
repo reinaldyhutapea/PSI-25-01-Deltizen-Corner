@@ -13,10 +13,15 @@ use App\Http\Controllers\ConfirmAdminController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+
+Auth::routes();
 
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 Auth::routes();
 Route::get('/logout', [LogoutController::class, 'perform'])->name('logout.perform');
+
 
 //--home--
 Route::get('/menu', [HomeController::class, 'all'])->name('products.index');
@@ -25,13 +30,16 @@ Route::get('/menu/minuman', [HomeController::class, 'minuman'])->name('products.
 Route::get('/menu/cari', [HomeController::class, 'cari'])->name('products.cari');
 
 //--cart--
-Route::get('cart', [CartController::class, 'cartList'])->name('cart.list');
 Route::post('cart', [CartController::class, 'addToCart'])->name('cart.store');
 Route::post('update-cart', [CartController::class, 'updateCart'])->name('cart.update');
 Route::post('remove', [CartController::class, 'removeCart'])->name('cart.remove');
 Route::post('clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
 Route::get('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+Route::get('/cart', [CartController::class, 'cartList'])->name('cart.list');
 Route::post('/cart/bayar', [CartController::class, 'bayar'])->name('cart.bayar');
+
+
+
 
 //--invoice--
 Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
@@ -111,3 +119,32 @@ Route::prefix('admin')->group(function () {
         Route::post('/profil/change_password', [AdminController::class, 'store'])->name('admin.password');
     });
 });
+
+//Login
+
+// Admin & Owner
+Route::middleware(['auth', 'role:admin,owner'])->group(function () {
+    Route::get('/admin/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
+});
+
+
+
+// Logout universal
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// CUSTOMER LOGIN
+Route::get('/login', [LoginController::class, 'showCustomerLoginForm'])->name('customer.login');
+Route::post('/login', [LoginController::class, 'customerLogin'])->name('customer.login.submit');
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+
+// Handle form submit
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
+
+
+// // ADMIN LOGIN
+// Route::get('/admin/login', [LoginController::class, 'showAdminLoginForm'])->name('admin.login');
+// Route::post('/admin/login', [LoginController::class, 'adminLogin'])->name('admin.login.submit');
+
+// OWNER LOGIN
+Route::get('/owner/login', [LoginController::class, 'showOwnerLoginForm'])->name('owner.login');
+Route::post('/owner/login', [LoginController::class, 'ownerLogin'])->name('owner.login.submit');
