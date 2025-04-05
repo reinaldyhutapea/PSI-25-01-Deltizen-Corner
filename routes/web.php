@@ -18,6 +18,7 @@ use App\Http\Controllers\Auth\RegisterController;
 
 Auth::routes();
 
+
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 Auth::routes();
 Route::get('/logout', [LogoutController::class, 'perform'])->name('logout.perform');
@@ -38,13 +39,11 @@ Route::get('/cart/checkout', [CartController::class, 'checkout'])->name('cart.ch
 Route::get('/cart', [CartController::class, 'cartList'])->name('cart.list');
 Route::post('/cart/bayar', [CartController::class, 'bayar'])->name('cart.bayar');
 
-
-
-
 //--invoice--
 Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
 Route::get('/invoice/list', [InvoiceController::class, 'list'])->name('invoice.list');
 Route::get('/invoice/detail/{id}', [InvoiceController::class, 'detail'])->name('invoice.detail');
+
 
 //--product--
 Route::get('/product', [ProductController::class, 'index'])->name('product.index');
@@ -66,6 +65,7 @@ Route::get('/categories/edit/{id}', [CategoryController::class, 'edit'])->name('
 Route::post('/categories/update/{id}', [CategoryController::class, 'update'])->name('category.update');
 Route::get('/categories/destroy/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 Route::get('/categories/detail/{id}', [CategoryController::class, 'detail'])->name('category.detail');
+
 
 //--confirm--
 Route::get('/confirmAdmin', [ConfirmAdminController::class, 'index'])->name('confirmAdmin');
@@ -122,12 +122,6 @@ Route::prefix('admin')->group(function () {
 
 //Login
 
-// Admin & Owner
-Route::middleware(['auth', 'role:admin,owner'])->group(function () {
-    Route::get('/admin/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
-});
-
-
 
 // Logout universal
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -141,9 +135,9 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
 
-// // ADMIN LOGIN
-// Route::get('/admin/login', [LoginController::class, 'showAdminLoginForm'])->name('admin.login');
-// Route::post('/admin/login', [LoginController::class, 'adminLogin'])->name('admin.login.submit');
+// ADMIN LOGIN
+Route::get('/admin/login', [LoginController::class, 'showAdminLoginForm'])->name('admin.login');
+Route::post('/admin/login', [LoginController::class, 'adminLogin'])->name('admin.login.submit');
 
 // OWNER LOGIN
 Route::get('/owner/login', [LoginController::class, 'showOwnerLoginForm'])->name('owner.login');
