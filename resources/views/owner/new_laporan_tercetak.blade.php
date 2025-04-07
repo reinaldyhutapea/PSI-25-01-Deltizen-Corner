@@ -33,8 +33,8 @@
 <div class="container-fluid">
 <header>
     <h5>Laporan Penjualan Produk</h5>
-    <h1>Warung Makan Barokah</h1>
-    <p>Jalan Bakulan-Imogiri, Jetis, Bantul, Yogyakarta 55781</p>
+    <h1>Deltizen Corner</h1>
+    <p>Jalan Sisingamangaraja, Sitoluama, Laguboti, Kabupaten Toba Samosir, Sumatera Utara</p>
 </header>
 
 <hr>

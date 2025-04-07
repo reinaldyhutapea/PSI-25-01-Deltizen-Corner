@@ -23,7 +23,7 @@
 </head>
 <body style="background-color: #f2f2f2">
 <div class="header">
-    <h1 style="margin-left:20px;font-size:24px; float:left;color: white">WR.Barokah</h1>
+    <h1 style="margin-left:20px;font-size:24px; float:left;color: white">DCO</h1>
     <a href="{{ route('login') }}"style="margin-right:20px;float:right;">Login</a>
     <a href="{{ route('register') }}" style="margin-right:20px;float:right;">Register</a>
 </div>

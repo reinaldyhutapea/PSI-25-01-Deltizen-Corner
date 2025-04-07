@@ -13,10 +13,16 @@ use App\Http\Controllers\ConfirmAdminController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+
+Auth::routes();
+
 
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 Auth::routes();
 Route::get('/logout', [LogoutController::class, 'perform'])->name('logout.perform');
+
 
 //--home--
 Route::get('/menu', [HomeController::class, 'all'])->name('products.index');
@@ -25,18 +31,19 @@ Route::get('/menu/minuman', [HomeController::class, 'minuman'])->name('products.
 Route::get('/menu/cari', [HomeController::class, 'cari'])->name('products.cari');
 
 //--cart--
-Route::get('cart', [CartController::class, 'cartList'])->name('cart.list');
 Route::post('cart', [CartController::class, 'addToCart'])->name('cart.store');
 Route::post('update-cart', [CartController::class, 'updateCart'])->name('cart.update');
 Route::post('remove', [CartController::class, 'removeCart'])->name('cart.remove');
 Route::post('clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
 Route::get('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+Route::get('/cart', [CartController::class, 'cartList'])->name('cart.list');
 Route::post('/cart/bayar', [CartController::class, 'bayar'])->name('cart.bayar');
 
 //--invoice--
 Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
 Route::get('/invoice/list', [InvoiceController::class, 'list'])->name('invoice.list');
 Route::get('/invoice/detail/{id}', [InvoiceController::class, 'detail'])->name('invoice.detail');
+
 
 //--product--
 Route::get('/product', [ProductController::class, 'index'])->name('product.index');
@@ -58,6 +65,7 @@ Route::get('/categories/edit/{id}', [CategoryController::class, 'edit'])->name('
 Route::post('/categories/update/{id}', [CategoryController::class, 'update'])->name('category.update');
 Route::get('/categories/destroy/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 Route::get('/categories/detail/{id}', [CategoryController::class, 'detail'])->name('category.detail');
+
 
 //--confirm--
 Route::get('/confirmAdmin', [ConfirmAdminController::class, 'index'])->name('confirmAdmin');
@@ -83,7 +91,8 @@ Route::get('/pembayaran',[HomeController::class, 'pembayaran']);
 Route::get('/owner/index',[OwnerController::class, 'index0'])->name('owner.index');
 Route::get('/owner/profil',[OwnerController::class, 'profil'])->name('owner.profil');
 Route::post('/owner/profil/change_password',[OwnerController::class, 'store'])->name('change.password');
-Route::get('/owner/laporan/penjualan',[OwnerController::class, 'index']);
+// Route::get('/owner/laporan/penjualan',[OwnerController::class, 'index']);
+// Route::get('/owner/laporan_penjualan', [OwnerController::class, 'laporan_penjualan'])->name('owner.laporan_penjualan'); //baru statistik
 Route::get('/owner/laporan/penjualan/cetak',[OwnerController::class, 'penjualan_cetak'])->name('penjualan.cetak');
 Route::get('/owner/laporan/pesanan',[OwnerController::class, 'index2']);
 Route::get('/owner/laporan/pesanan/cetak',[OwnerController::class, 'pesanan_cetak'])->name('pesanan.cetak');
@@ -100,6 +109,7 @@ Route::get('/owner/laporan/cari',[OwnerController::class, 'cari']);
 Route::get('/owner/laporan/kategori',[OwnerController::class, 'kategori']);
 Route::get('/order/cetak_pertanggal/{tglawal}/{tglakhir}', [OwnerController::class, 'cetak'])->name('order.cetak_pertanggal');
 
+
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [AdminController::class, 'login']);
@@ -111,3 +121,38 @@ Route::prefix('admin')->group(function () {
         Route::post('/profil/change_password', [AdminController::class, 'store'])->name('admin.password');
     });
 });
+
+//Login
+
+
+// Logout universal
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// CUSTOMER LOGIN
+Route::get('/login', [LoginController::class, 'showCustomerLoginForm'])->name('customer.login');
+Route::post('/login', [LoginController::class, 'customerLogin'])->name('customer.login.submit');
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+
+// Handle form submit
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
+
+
+
+// ADMIN LOGIN
+Route::get('/admin/login', [LoginController::class, 'showAdminLoginForm'])->name('admin.login');
+Route::post('/admin/login', [LoginController::class, 'adminLogin'])->name('admin.login.submit');
+
+//statistik penjualan owner
+Route::middleware(['auth', 'role:admin,owner'])->group(function () {
+    Route::get('/owner/laporan_penjualan', [OwnerController::class, 'laporan_penjualan'])->name('owner.laporan_penjualan');
+});
+
+
+// // ADMIN LOGIN
+// Route::get('/admin/login', [LoginController::class, 'showAdminLoginForm'])->name('admin.login');
+// Route::post('/admin/login', [LoginController::class, 'adminLogin'])->name('admin.login.submit');
+
+
+// OWNER LOGIN
+Route::get('/owner/login', [LoginController::class, 'showOwnerLoginForm'])->name('owner.login');
+Route::post('/owner/login', [LoginController::class, 'ownerLogin'])->name('owner.login.submit');

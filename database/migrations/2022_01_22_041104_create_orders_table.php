@@ -23,6 +23,7 @@ class CreateOrdersTable extends Migration
             $table->enum('status',['belum bayar','menunggu verifikasi','dibayar','ditolak']);
             $table->text('detail_status')->nullable();
             $table->timestamps();
+            $table->index('date');
     
             // Foreign key untuk user_id
             $table->foreign('user_id')->references('id')->on('users')
