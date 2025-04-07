@@ -57,18 +57,20 @@ class LoginController extends Controller
 
     public function ownerLogin(Request $request)
     {
-        $this->validateLogin($request);
+        $this->validateLogin($request, [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-        if (Auth::attempt($request->only('email', 'password'))) {
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
             if (Auth::user()->role === 'owner') {
-                return redirect()->route('owner.index');
-            } else {
-                Auth::logout();
-                return back()->withErrors(['email' => 'Akun ini bukan owner.']);
+                return redirect()->intended('/owner/index');
             }
+            Auth::logout();
+            return back()->withErrors(['email' => 'Hanya owner yang bisa login di sini']);
         }
-
-        return back()->withErrors(['email' => 'Email atau password salah.']);
+        return back()->withErrors(['email' => 'Email atau password salah']);
     }
 
     protected function validateLogin(Request $request)

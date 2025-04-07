@@ -21,8 +21,21 @@ class Order extends Model
         return $this->hasOne(Confirm::class);
     }
 
-    public function products() // Perbaikan relasi Many-to-Many
+    public function products()
     {
-        return $this->belongsToMany(Product::class, 'order_product');
+        return $this->belongsToMany(Product::class, 'order_product')
+                    ->withPivot('quantity', 'subtotal');
+    }
+
+    // Scope untuk filter rentang tanggal
+    public function scopeByDateRange($query, $startDate, $endDate)
+    {
+        return $query->whereBetween('date', [$startDate, $endDate]);
+    }
+
+    // Scope untuk status tertentu
+    public function scopeByStatus($query, $status)
+    {
+        return $query->where('status', $status);
     }
 }
