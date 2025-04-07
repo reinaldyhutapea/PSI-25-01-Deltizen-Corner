@@ -18,7 +18,7 @@ use App\Http\Controllers\Auth\RegisterController;
 
 Auth::routes();
 
-
+//
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 Auth::routes();
 Route::get('/logout', [LogoutController::class, 'perform'])->name('logout.perform');
