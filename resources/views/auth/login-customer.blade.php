@@ -96,6 +96,7 @@
                         Daftar disini 
                     </a>
                 </div>
+                
             </form>
         </div>
     </div>

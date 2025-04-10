@@ -28,7 +28,7 @@
     <div class="col_a">
     <div class="col-md-12 ">
         <div class="id_pesanan">
-            <a href="{{ route('order.index') }}" style="text-decoration: none;color:rgb(0, 0, 0);float: left;"><i class="fa-solid fa-chevron-left" style="margin-right: 4px;"></i>Kembali</a>
+            <a href="{{ route('admin.order.index') }}" style="text-decoration: none;color:rgb(0, 0, 0);float: left;"><i class="fa-solid fa-chevron-left" style="margin-right: 4px;"></i>Kembali</a>
         </div>
         <div class="id_pesanan">
             <h6 style="float: right">Id Pesanan : {{ $identity->order_id}}</h6>

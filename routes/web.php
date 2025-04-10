@@ -18,7 +18,7 @@ use App\Http\Controllers\Auth\RegisterController;
 
 Auth::routes();
 
-
+//
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 Auth::routes();
 Route::get('/logout', [LogoutController::class, 'perform'])->name('logout.perform');
@@ -76,11 +76,11 @@ Route::get('/confirm/{id}', [ConfirmController::class, 'index'])->name('confirm.
 Route::post('/confirm/store', [ConfirmController::class, 'store'])->name('confirm.store');
 
 //--order--
-Route::get('/order', [OrderController::class, 'index'])->name('order.index');
+Route::get('/order', [OrderController::class, 'index'])->name('admin.order.index');
 Route::get('/order/data', [OrderController::class, 'produkData'])->name('order.data');
 Route::get('/order/record', [OrderController::class, 'records'])->name('order.record');
 Route::get('/order/cetak', [OrderController::class, 'cetak'])->name('order.cetak');
-Route::get('/order/detail/{id}', [OrderController::class, 'detail'])->name('order.detail');
+Route::get('/order/detail/{id}', [OrderController::class, 'detail'])->name('admin.order.detail');
 
 //--Admin--
 Route::get('/admin/profil',[AdminController::class, 'profil'])->name('admin.profil');

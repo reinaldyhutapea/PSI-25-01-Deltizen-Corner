@@ -29,13 +29,22 @@
            </div>
 
            <div class="form-group">
-               <label>Kategori</label>
-               <select name="category_id" class="form-control">
-               @foreach($categories as $category)
-                   <option value="{{ $category->id }}">{{ $category->name }}</option>
-               @endforeach
-               </select>
-           </div>
+                <label>Kategori</label>
+                <select name="category_id" class="form-control">
+                    <option value="">-- Pilih Kategori --</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+                
+                {{-- Tampilkan pesan error jika ada --}}
+                @if ($errors->has('category_id'))
+                    <small class="text-danger">{{ $errors->first('category_id') }}</small>
+                @endif
+            </div>
+
 
            <div class="form-group">
                <label>Harga</label>

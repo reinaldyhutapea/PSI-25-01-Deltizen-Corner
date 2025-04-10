@@ -27,7 +27,7 @@ class OrderController extends Controller
             $orders = Order::where('visitor_id', $visitor_id)->orderBy('id', 'desc')->get();
         }
 
-        return view('order.index', compact('orders'));
+        return view('admin.order.index', compact('orders'));
     }
 
     public function detail($id)
@@ -48,7 +48,7 @@ class OrderController extends Controller
         $details = Order_Product::where('order_id', $id)->get();
         $identity = Order_Product::where('order_id', $id)->first();
 
-        return view('order.detail', compact('details', 'identity', 'id'));
+        return view('admin.order.detail', compact('details', 'identity', 'id'));
     }
 
     public function cetak()
@@ -103,7 +103,7 @@ class OrderController extends Controller
 
             return Datatables::of($data)
                 ->addColumn('action', function ($data) {
-                    return '<a href="' . route('order.detail', $data->id) . '" id="btn0" class="btn btn-xs btn-secondary"><i class="fa-solid fa-circle-info"></i></a>';
+                    return '<a href="' . route('admin.order.detail', $data->id) . '" id="btn0" class="btn btn-xs btn-secondary"><i class="fa-solid fa-circle-info"></i></a>';
                 })
                 ->editColumn('status', function ($data) {
                     switch ($data->status) {
