@@ -61,7 +61,7 @@ function updateStatus(orderId, newStatus) {
 
 @php
 function getStatusClass($status) {
-    return match ($status) {
+    return match ($status){
         'pending' => 'warning',
         'diproses' => 'primary',
         'dikirim' => 'info',

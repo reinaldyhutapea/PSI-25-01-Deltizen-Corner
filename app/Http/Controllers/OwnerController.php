@@ -149,7 +149,7 @@ class OwnerController extends Controller{
                 }
                 return Datatables::of($data)
                 ->addColumn('action', function ($data) {
-                            $detail = '<a href="'.route('order.detail',$data->id).
+                            $detail = '<a href="'.route('admin.order.detail',$data->id).
                             '" class="btn btn-xs btn-warning"><i class="fa-solid fa-circle-info"></i></a>';
                             return $detail;
                         })

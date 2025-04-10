@@ -138,7 +138,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('order.index') }}" class="nav-link">
+                <a href="{{ route('admin.order.index') }}" class="nav-link">
                   <i class="fa-solid fa-rectangle-list"></i>
                   <p>Daftar Pesanan</p>
                 </a>

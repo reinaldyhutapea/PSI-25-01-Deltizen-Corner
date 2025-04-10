@@ -6,6 +6,8 @@ use App\Models\Category;
 use Illuminate\Support\Str;
 use Yajra\Datatables\Datatables;
 class ProductController extends Controller{
+
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -19,46 +21,92 @@ class ProductController extends Controller{
     public function create(){
         $title = 'Create Product';
         $categories = Category::orderBy('name','asc')->get();
-        return view('products.index',compact('title','categories'));
+        return view('admin.products.index',compact('title','categories'));
     }
-    public function store(Request $request){
+    public function store(Request $request){   
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required|numeric',
+            'stoks' => 'required|in:0,1',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+        ], [
+            'name.required' => 'Nama produk wajib diisi',
+            'description.required' => 'Deskripsi wajib diisi',
+            'price.required' => 'Harga wajib diisi',
+            'category_id.required' => 'Isi kategori',
+            'category_id.exists' => 'Kategori tidak ditemukan',
+            'image.required' => 'Gambar produk wajib diupload',
+            'image.image' => 'File harus berupa gambar',
+            'image.mimes' => 'Format gambar harus jpg/jpeg/png',
+        ]);
+    
         $input = new Product;
-        $input->id=$request->id;
-        $input->description=$request->description;
-        $input->name=$request->name;
-        $input->price=$request->price;
-        $input->stock=1;
-        $input->stoks=$request->stoks;
-        if ($request->hasFile('image')){
-            $input['image'] = '/upload/products/'.str::slug($input['name'], '-').'.'
-            .$request->image->getClientOriginalExtension();
-            $request->image->move(public_path('/upload/products/'), $input['image']);
+        $input->id = $request->id;
+        $input->description = $request->description;
+        $input->name = $request->name;
+        $input->price = $request->price;
+        $input->stock = 1; // atau bisa disesuaikan
+        $input->stoks = $request->stoks;
+    
+        if ($request->hasFile('image')) {
+            $imageName = Str::slug($input->name, '-') . '.' . $request->image->getClientOriginalExtension();
+            $request->image->move(public_path('/upload/products/'), $imageName);
+            $input->image = '/upload/products/' . $imageName;
         }
-        $input->category_id=$request->category_id;
+    
+        $input->category_id = $request->category_id;
         $input->save();
+    
         return redirect()->back()->with('status','Anda berhasil menambahkan product');
     }
+    
+    
     public function edit($id){
         $title = 'Edit Product';
         $product = Product::findOrFail($id);
         $categories = Category::orderBy('name','asc')->get();
-        return view('products.edit', compact('product', 'title','categories'));
+        return view('admin.products.edit', compact('product', 'title','categories'));
     }
     public function update(Request $request, $id){
-        $input = $request->all();
-        $product = Product::findOrFail($id);  
-        $input['image'] = $product->image;
-        if ($request->hasFile('image')){
-            if (!$product->image == NULL){
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required|numeric',
+            'stoks' => 'required|in:0,1',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
+        ], [
+            'name.required' => 'Nama produk wajib diisi',
+            'description.required' => 'Deskripsi wajib diisi',
+            'price.required' => 'Harga wajib diisi',
+            'category_id.required' => 'Isi kategori',
+            'category_id.exists' => 'Kategori tidak ditemukan',
+        ]);
+    
+        $product = Product::findOrFail($id);
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->stoks = $request->stoks;
+        $product->category_id = $request->category_id;
+    
+        if ($request->hasFile('image')) {
+            if ($product->image && file_exists(public_path($product->image))) {
                 unlink(public_path($product->image));
             }
-            $input['image'] = '/upload/products/'.str::slug($input['name'], '-').'.'
-            .$request->image->getClientOriginalExtension();
-            $request->image->move(public_path('/upload/products/'), $input['image']);
+            $imageName = Str::slug($product->name, '-') . '.' . $request->image->getClientOriginalExtension();
+            $request->image->move(public_path('/upload/products/'), $imageName);
+            $product->image = '/upload/products/' . $imageName;
         }
-        $product->update($input);
-        return redirect()->back()->with('status','Anda berhasil mengubah data produdct');
+    
+        $product->save();
+    
+        return redirect()->back()->with('status','Anda berhasil mengubah data produk');
     }
+    
+    
     public function destroy($id){
         $product = Product::findOrFail($id);
         if (!$product->image == NULL){
@@ -69,7 +117,7 @@ class ProductController extends Controller{
     }
     public function detail($id){
         $product = Product::findOrFail($id);
-        return view('products.detail',compact('product'));
+        return view('admin.products.detail',compact('product'));
     }
    public function changeStoks ($id){
     $product = Product::findOrFail($id);
