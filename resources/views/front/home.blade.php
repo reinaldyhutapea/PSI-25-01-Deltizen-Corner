@@ -100,69 +100,79 @@
     <div class="section">
         <h2 class="text-dark"><strong>Promo Spesial</strong></h2>
         <div class="row">
+            <!-- Promo Minuman -->
             <div class="col-md-4">
                 <div class="card" style="background-color: #1A4733; color: white; border-radius: 200px;">
                     <img class="card-img-top rounded-pill" src="{{ asset('gambar6.jpg') }}" alt="Promo Minuman">
                     <div class="card-body text-center">
                         <h5 class="card-title">Beli 1 Gratis 1 Minuman</h5>
                         <p class="card-text">Segarkan hari Anda dengan promo menarik ini.</p>
-                        <a href="menu/minuman" class="btn btn-success btn-custom">Lihat Detail</a>
+                        <a href="{{ route('promo.minuman') }}" class="btn btn-success btn-custom">Lihat Detail</a>
                     </div>
                 </div>
             </div>
+
+            <!-- Promo Makanan -->
             <div class="col-md-4">
                 <div class="card" style="background-color: #1A4733; color: white; border-radius: 200px;">
                     <img class="card-img-top rounded-pill" src="{{ asset('gamabar7.jpg') }}" alt="Promo Makanan">
                     <div class="card-body text-center">
                         <h5 class="card-title">Diskon 20% untuk Semua Makanan</h5>
                         <p class="card-text">Nikmati hidangan favorit Anda dengan harga spesial.</p>
-                        <a href="menu/makanan" class="btn btn-success btn-custom">Lihat Detail</a>
+                        <a href="{{ route('promo.makanan') }}" class="btn btn-success btn-custom">Lihat Detail</a>
                     </div>
                 </div>
             </div>
+
+            <!-- Promo Paket Hemat -->
             <div class="col-md-4">
                 <div class="card" style="background-color: #1A4733; color: white; border-radius: 200px;">
                     <img class="card-img-top rounded-pill" src="{{ asset('gambar8.jpg') }}" alt="Promo Paket">
                     <div class="card-body text-center">
                         <h5 class="card-title">Paket Hemat Makan Siang</h5>
                         <p class="card-text">Dapatkan paket lengkap dengan harga terjangkau.</p>
-                        <a href="menu/makanan" class="btn btn-success btn-custom">Lihat Detail</a>
+                        <a href="{{ route('promo.paket') }}" class="btn btn-success btn-custom">Lihat Detail</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-<script>
-  var li_links = document.querySelectorAll(".links ul li");
-  var view_wraps = document.querySelectorAll(".view_wrap");
-  var list_view = document.querySelector(".list-view");
-  var grid_view = document.querySelector(".grid-view");
+    <script>
+        var li_links = document.querySelectorAll(".links ul li");
+        var view_wraps = document.querySelectorAll(".view_wrap");
+        var list_view = document.querySelector(".list-view");
+        var grid_view = document.querySelector(".grid-view");
 
-  li_links.forEach(function(link) {
-    link.addEventListener("click", function() {
-      li_links.forEach(function(link) {
-        link.classList.remove("active");
-      })
+        li_links.forEach(function(link) {
+            link.addEventListener("click", function() {
+                li_links.forEach(function(link) {
+                    link.classList.remove("active");
+                });
 
-      link.classList.add("active");
+                link.classList.add("active");
 
-      var li_view = link.getAttribute("data-view");
+                var li_view = link.getAttribute("data-view");
 
-      view_wraps.forEach(function(view) {
-        view.style.display = "none";
-      })
+                view_wraps.forEach(function(view) {
+                    view.style.display = "none";
+                });
 
-      if (li_view == "list-view") {
-        list_view.style.display = "block";
-      } else {
-        grid_view.style.display = "block";
-      }
-    })
-  })
-</script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+                if (li_view == "list-view") {
+                    list_view.style.display = "block";
+                } else {
+                    grid_view.style.display = "block";
+                }
+            });
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
 @endsection

@@ -15,6 +15,7 @@ use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\PromoController;
 
 Auth::routes();
 
@@ -156,3 +157,8 @@ Route::middleware(['auth', 'role:admin,owner'])->group(function () {
 // OWNER LOGIN
 Route::get('/owner/login', [LoginController::class, 'showOwnerLoginForm'])->name('owner.login');
 Route::post('/owner/login', [LoginController::class, 'ownerLogin'])->name('owner.login.submit');
+
+//PROMO
+Route::get('/promo/minuman', [PromoController::class, 'minuman'])->name('promo.minuman');
+Route::get('/promo/makanan', [PromoController::class, 'makanan'])->name('promo.makanan');
+Route::get('/promo/paket', [PromoController::class, 'paket'])->name('promo.paket');
