@@ -223,36 +223,6 @@ class OwnerController extends Controller
             }
             return Datatables::of($data)
                 ->addColumn('action', function ($data) {
-                            $detail = '<a href="'.route('admin.order.detail',$data->id).
-                            '" class="btn btn-xs btn-warning"><i class="fa-solid fa-circle-info"></i></a>';
-                            return $detail;
-                        })
-                        ->addIndexColumn()
-                        ->editColumn('status', function($data){
-                            
-                            if($data->status=='belum bayar'){
-                            // return '<img src=" '.url($data->status).' "/>';
-                                return '<button type="button" class="btn bg-maroon">'.$data->status.'</button>';
-                            }elseif($data->status=='menunggu verifikasi'){
-                                return '<button type="button" class="btn bg-orange">'.$data->status.'</button>';
-                            }elseif($data->status=='dibayar'){
-                                return '<button type="button" class="btn btn-success">'.$data->status.'</button>';
-                            }else{
-                                return '<button type="button" class="btn bg-danger">'.$data->status.'</button>';   
-                            
-                            }
-                        })
-                        ->editColumn('total_price', function($data){
-                            return 'Rp. '.number_format($data->total_price,0).' ';
-                        })
-                        ->rawColumns(['status','action','total_price','number'])->make(true);
-            }
-            }
-            public function produkOwner (){
-                $data = Product::join('categories', 'products.category_id', '=', 'categories.id')
-                ->select('products.id', 'products.name as pname', 'categories.name as cname', 'products.description',
-                'products.price','products.stoks', 'products.image');
-                return Datatables::of($data)
                     $detail = '<a href="' . route('order.detail', $data->id) .
                         '" class="btn btn-xs btn-warning"><i class="fa-solid fa-circle-info"></i></a>';
                     return $detail;
