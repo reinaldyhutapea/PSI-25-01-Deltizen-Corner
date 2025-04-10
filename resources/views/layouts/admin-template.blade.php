@@ -184,7 +184,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2022 <a href=""></a>Warung Makan Barokah</strong>
+    <strong>Copyright &copy; 2025 <a href=""></a>DCO</strong>
   </footer>
 
   <!-- Control Sidebar -->

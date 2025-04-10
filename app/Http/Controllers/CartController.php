@@ -8,6 +8,7 @@ use App\Models\Order_Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 
+
 class CartController extends Controller
 {
 
@@ -92,12 +93,13 @@ class CartController extends Controller
 
         // Simpan order
         $order = new Order;
-        $order->user_id = $user_id; // Bisa null jika guest
-        $order->visitor_id = $visitor_id; // Simpan visitor_id untuk guest
+        $order->user_id = $user_id;
+        $order->visitor_id = $visitor_id;
         $order->receiver = $receiver;
         $order->address = $address;
         $order->catatan = $catatan;
-        $order->detail_status = $detail_status;
+        $order->detail_status = 'belum bayar'; // Ini OK
+        $order->status = 'belum bayar'; // Tambahin ini
         $order->total_price = $total_bayar;
         $order->date = Carbon::now();
         $order->save();
@@ -115,7 +117,7 @@ class CartController extends Controller
         // Bersihkan keranjang setelah checkout
         \Cart::clear();
 
-        return redirect('/invoice/list')
-            ->with('success', 'Pemesanan berhasil, silahkan lakukan pembayaran');
+        return redirect()->route('confirm.index', $order->id)
+    ->with('success', 'Pemesanan berhasil, silahkan upload bukti pembayaran');
     }
 }

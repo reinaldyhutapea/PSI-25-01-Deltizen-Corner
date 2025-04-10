@@ -19,9 +19,9 @@ section {
            
         <!-- Jumbotron -->
         <section class="jumbotron text-center">
-            <img src="{{ asset('/gambar/Img1.jpg')}}" alt="WrBarokah" width="200px" class="rounded-circle img-thumbnail" />
-            <h1 class="display-4">Warung Makan Barokah</h1>
-            <p class="lead">Jalan Bakulan-Imogiri, Jetis, Bantul, Yogyakarta</p>
+            <img src="{{ asset('/gambar/Img1.jpg')}}" alt="DCO" width="200px" class="rounded-circle img-thumbnail" />
+            <h1 class="display-4">DCO</h1>
+            <p class="lead">Jalan Sisingamangaraja, Sitoluama, Laguboti, Kabupaten Toba Samosir, Sumatera Utara</p>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
             <path
               fill="#ffffff"
@@ -37,26 +37,22 @@ section {
           <div class="container">
             <div class="row text-center">
               <div class="col mb-3">
-                <h2>Tentang Warung Makan Barokah</h2>
+                <h2>Tentang Deltizen Corner</h2>
               </div>
               <div class="row justify-content-center fs-5 text-center">
                 <div class="col-md-4">
-                    <p> Warung makan barokah merupakan sebuah 
-                        warung makan sederhana yang menjual makanan dan 
-                        minuman dengan sajian utama yaitu masakan soto. 
-                        Usaha ini berlokasi di Jalan Bakulan-Imogiri, Jetis, Bantul, zYogyakarta. 
+                    <p> Deltizen Corner merupakan sebuah 
+                        cafe yang menjual makanan dan 
+                        minuman dengan berbagai menu. 
+                        Usaha ini berlokasi di Jalan Sisingamangaraja, Sitoluama, Laguboti, Kabupaten Toba Samosir, Sumatera Utara. 
                         </p>
                 </div>
                 <div class="col-md-4">
-                    Pemilik dari warung makan barokah ini yaitu Purwanta Sudarma yang 
-                    berusia 65 tahun menuturkan bahwa warung ini telah berdiri sejak tahun 
-                    1990-an yang telah berganti lokasi sebanyak satu kali, dikarenakan masalah 
-                    sengketa tanah.  
+                    Pemilik dari Deltizen Corner ini yaitu Bapak Hermanto Sinaga  
                 </div>
                 <div class="col-md-4">
-                    Warung makan barokah saat ini memiliki pegawai sebanyak enam 
-                    orang dan mayoritas berasal dari keluarga pemilik usaha sendiri. Warung makan 
-                    ini mulai berjualan dari pukul 07.00 WIB pagi sampai dengan pukul 17.00 WIB.
+                  Deltizen Corner saat ini memiliki pegawai sebanyak tiga 
+                    orang. Cafe ini mulai berjualan dari pukul 08.00 WIB pagi sampai dengan pukul 22.00 WIB.
                 </div>
               </div>
             </div>
@@ -76,14 +72,14 @@ section {
           <div class="container">
             <div class="row text-center mb-3">
               <div class="col mb-3">
-                <h2>Suasana di Warung Makan Barokah</h2>
+                <h2>Suasana di Deltizen Corner</h2>
               </div>
               <div class="row justify-content-center">
                 <div class="col-md-4 mb-3">
                   <div class="card">
                     <img src="{{ asset('/gambar/Img4.jpg')}}" class="card-img-top" alt="1" />
                     <div class="card-body">
-                      <p class="card-text">Tampak depan warung makan barokah</p>
+                      <p class="card-text">Tampak depan Deltizen Corner</p>
                     </div>
                   </div>
                 </div>
@@ -91,7 +87,7 @@ section {
                   <div class="card">
                     <img src="{{ asset('/gambar/Img2.jpg')}}" class="card-img-top" alt="2" />
                     <div class="card-body">
-                      <p class="card-text">Didalam warung makan barokah</p>
+                      <p class="card-text">Didalam Deltizen Corner</p>
                    </div>
                   </div>
                 </div>
@@ -99,7 +95,7 @@ section {
                   <div class="card">
                     <img src="{{ asset('/gambar/Img3.jpg')}}" class="card-img-top" alt="3" />
                     <div class="card-body">
-                      <p class="card-text">Didalam warung makan barokah</p>
+                      <p class="card-text">Didalam Deltizen Corner</p>
                     </div>
                   </div>
                 </div>
@@ -119,7 +115,7 @@ section {
     
         <!-- Akhir Contact -->
         <footer class="bg-primary text-white text-center pb-5">
-          <p>Warung Makan Barokah <i class="bi bi-heart-fill text-danger"></i></p>
+          <p>Deltizen Corner <i class="bi bi-heart-fill text-danger"></i></p>
         </footer>
         <!-- Footer -->
     

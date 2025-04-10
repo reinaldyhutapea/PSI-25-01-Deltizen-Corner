@@ -137,4 +137,57 @@ class OrderController extends Controller
 
         return view('order.records', compact('orders'));
     }
+
+    public function laporan_penjualan(Request $request)
+    {
+        $startDate = $request->input('from_date', now()->subDays(30)->toDateString());
+        $endDate = $request->input('to_date', now()->toDateString());
+
+        if ($startDate > $endDate) {
+            return redirect()->back()->withErrors(['date' => 'Tanggal awal tidak boleh lebih besar dari tanggal akhir']);
+        }
+
+        $totalSales = Order::byDateRange($startDate, $endDate)
+            ->byStatus('dibayar')
+            ->sum('total_price');
+        $orderCount = Order::byDateRange($startDate, $endDate)
+            ->byStatus('dibayar')
+            ->count();
+        $avgOrderValue = $orderCount ? $totalSales / $orderCount : 0;
+
+        $dailySales = Order::byDateRange($startDate, $endDate)
+            ->byStatus('dibayar')
+            ->selectRaw('DATE(date) as sale_date, SUM(total_price) as total')
+            ->groupBy('sale_date')
+            ->orderBy('sale_date')
+            ->pluck('total', 'sale_date')
+            ->toArray();
+
+        $topProducts = Order_Product::whereHas('order', function ($query) use ($startDate, $endDate) {
+            $query->byDateRange($startDate, $endDate)->byStatus('dibayar');
+        })
+            ->join('products', 'order_product.product_id', '=', 'products.id')
+            ->selectRaw('products.name, SUM(order_product.quantity) as total_quantity, SUM(order_product.subtotal) as total_revenue')
+            ->groupBy('products.name')
+            ->orderByDesc('total_quantity')
+            ->limit(5)
+            ->get();
+
+        $statusDistribution = Order::byDateRange($startDate, $endDate)
+            ->selectRaw('status, COUNT(*) as count')
+            ->groupBy('status')
+            ->pluck('count', 'status')
+            ->toArray();
+
+        $stats = [
+            'total_sales' => $totalSales,
+            'order_count' => $orderCount,
+            'avg_order_value' => $avgOrderValue,
+            'daily_sales' => $dailySales,
+            'top_products' => $topProducts,
+            'status_distribution' => $statusDistribution,
+        ];
+
+        return view('owner.laporan_penjualan', compact('stats', 'startDate', 'endDate'));
+    }
 }

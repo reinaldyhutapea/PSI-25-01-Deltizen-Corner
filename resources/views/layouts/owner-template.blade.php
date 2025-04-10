@@ -146,7 +146,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="/owner/laporan/penjualan" class="nav-link">
+                  <a href="/owner/laporan_penjualan" class="nav-link">
                     <i class='bx bx-bar-chart-alt-2'></i>
                     <p>Laporan Penjualan</p>
                   </a>
@@ -195,7 +195,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2022 <a href=""></a>Warung Makan Barokah</strong>
+    <strong>Copyright &copy; 2025 <a href=""></a>DCO</strong>
   </footer>
 
   <!-- Control Sidebar -->
