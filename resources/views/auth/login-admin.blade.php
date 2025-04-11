@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body {
-            background-color: #777;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
         }
 
         .login-box {
@@ -23,7 +28,7 @@
         .login-box .icon {
             width: 80px;
             height: 80px;
-            background-color: rgb(0, 187, 0);
+            background-color: #4C6E50;
             border-radius: 50%;
             margin: -60px auto 20px;
             display: flex;
@@ -37,7 +42,7 @@
         }
 
         .btn-custom {
-            background-color: rgb(0, 187, 0);
+            background-color: #4C6E50;;
             color: white;
             width: 100%;
         }
