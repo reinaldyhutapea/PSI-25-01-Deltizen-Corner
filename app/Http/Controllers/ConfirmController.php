@@ -16,14 +16,25 @@ class ConfirmController extends Controller
 
     public function store(Request $request)
     {
+        // Validasi input
+        $request->validate([
+            'order_id' => 'required|integer|exists:orders,id',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:5120', // Max 5MB, hanya gambar
+        ], [
+            'image.required' => 'Bukti pembayaran wajib diupload',
+            'image.image' => 'File harus berupa gambar',
+            'image.mimes' => 'Format gambar harus JPG, JPEG, atau PNG',
+            'image.max' => 'Ukuran gambar maksimal 5MB',
+        ]);
+
         $order_id = $request->order_id;
         $confirm = new Confirm;
 
-        // Upload gambar
+        // Upload gambar dengan nama yang aman
         $file = $request->file('image');
         $ext = $file->getClientOriginalExtension();
-        $newName = rand(100000, 1001238912) . "." . $ext;
-        $file->move('upload/confirm', $newName);
+        $newName = 'confirm_' . $order_id . '_' . time() . '.' . $ext;
+        $file->move(public_path('upload/confirm'), $newName);
 
         // Pakai helper currentCustomer()
         $customer = currentCustomer();
@@ -41,6 +52,11 @@ class ConfirmController extends Controller
                 ->first();
         }
 
+        // Pastikan order ditemukan dan milik user/visitor ini
+        if (!$order) {
+            return redirect()->back()->with('error', 'Pesanan tidak ditemukan atau bukan milik Anda.');
+        }
+
         // Simpan data konfirmasi
         $confirm->order_id = $order_id;
         $confirm->image = $newName;
@@ -48,10 +64,8 @@ class ConfirmController extends Controller
         $confirm->save();
 
         // Update status order
-        if ($order) {
-            $order->status = 'menunggu verifikasi';
-            $order->save();
-        }
+        $order->status = 'menunggu verifikasi';
+        $order->save();
 
         return redirect('/invoice/list')
             ->with('success', 'Pembayaran berhasil, admin akan verifikasi pesananmu!');

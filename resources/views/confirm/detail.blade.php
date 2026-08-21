@@ -1,6 +1,5 @@
 @extends('layouts.admin-template')
 @section('content')
-{{-- <link href="{{ asset('/css/detail.css') }}" rel="stylesheet"> --}}
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -78,8 +77,16 @@
         </div>
 
 <br>
-<a href="{{ url('confirmAdmin/terima/'.$detail->order_id) }}" class="btn btn-lg bg-success btn-block">Terima</a>
-<a style="margin-bottom: 20px;" href="{{ url('confirmAdmin/tolak/'.$detail->order_id)}}" class="btn btn-lg bg-red btn-block">Tolak</a>
+<div class="d-flex gap-2">
+    <form action="{{ route('confirmAdmin.terima', $detail->order_id) }}" method="POST" onsubmit="return confirm('Yakin ingin menerima pesanan ini?')">
+        @csrf
+        <button type="submit" class="btn btn-lg bg-success btn-block">Terima</button>
+    </form>
+    <form action="{{ route('confirmAdmin.tolak', $detail->order_id) }}" method="POST" onsubmit="return confirm('Yakin ingin menolak pesanan ini?')">
+        @csrf
+        <button type="submit" class="btn btn-lg bg-danger btn-block" style="margin-bottom: 20px;">Tolak</button>
+    </form>
+</div>
 
 </div>
 @endsection

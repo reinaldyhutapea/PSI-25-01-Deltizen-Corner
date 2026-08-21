@@ -137,10 +137,13 @@
                                     <i class='bx bx-info-circle' style="font-size: 30px;font-weight: 700;color: #fff;"></i>
                                     <span class="tooltiptext">Detail Pesanan</span>
                                 </a>
-                                <a href="{{ url('/confirmAdmin/terima/'.$confirm->order_id) }}" class="btn bg-success">
-                                    <i class='bx bx-check-circle' style="font-size: 30px;font-weight: 700;"></i>
-                                    <span class="tooltiptext">Terima Pesanan</span>
-                                </a>
+                                <form action="{{ route('confirmAdmin.terima', $confirm->order_id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Yakin ingin menerima pesanan ini?')">
+                                    @csrf
+                                    <button type="submit" class="btn bg-success">
+                                        <i class='bx bx-check-circle' style="font-size: 30px;font-weight: 700;"></i>
+                                        <span class="tooltiptext">Terima Pesanan</span>
+                                    </button>
+                                </form>
                                 <button type="button" class="btn bg-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ $confirm->order_id }}">
                                     <i class='bx bx-x-circle' style="font-size: 30px;font-weight: 700;"></i>
                                     <span class="tooltiptext">Tolak Pesanan</span>
@@ -165,7 +168,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form role="form" method="get" action="{{ url('/confirmAdmin/tolak/'.$confirm->order_id)}}" enctype="multipart/form-data">
+                <form role="form" method="POST" action="{{ route('confirmAdmin.tolak', $confirm->order_id) }}">
                     @csrf
                     <input type="radio" name="detail_status" value="Alamat Terlalu Jauh">Alamat Terlalu Jauh<br>
                     <input type="radio" name="detail_status" value="Bukti Pembayaran Tidak Sesuai">Bukti Pembayaran Tidak Sesuai<br>

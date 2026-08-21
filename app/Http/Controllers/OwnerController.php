@@ -16,17 +16,17 @@ use Illuminate\Support\Facades\Hash;
 
 class OwnerController extends Controller
 {
-
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-
+    /**
+     * Owner profile page
+     */
     public function profil()
     {
         return view('owner.profil');
     }
 
+    /**
+     * Change password
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -39,6 +39,9 @@ class OwnerController extends Controller
             ->with('success', 'Password berhasil diubah');
     }
 
+    /**
+     * Dashboard utama owner — statistik penjualan, produk terlaris, chart
+     */
     public function index0()
     {
         $products = Product::all();
@@ -74,7 +77,6 @@ class OwnerController extends Controller
             ->orderBy(DB::raw("MIN(date)"))
             ->get();
 
-
         $data = [];
         foreach ($visitor as $row) {
             $data['label'][] = $row->month;
@@ -88,12 +90,14 @@ class OwnerController extends Controller
         );
     }
 
+    /**
+     * Laporan penjualan — dengan filter tanggal, chart harian/bulanan, kategori
+     */
     public function penjualan(Request $request)
     {
         $startDate = $request->input('from_date', Carbon::now()->startOfMonth()->toDateString());
         $endDate = $request->input('to_date', Carbon::now()->endOfMonth()->toDateString());
 
-        // Data order detail
         $orders = DB::table('order_product')
             ->join('orders', 'order_product.order_id', '=', 'orders.id')
             ->join('products', 'order_product.product_id', '=', 'products.id')
@@ -109,7 +113,6 @@ class OwnerController extends Controller
             ->groupBy('orders.id', 'orders.date', 'orders.status', 'orders.created_at')
             ->get();
 
-        // Penjualan Harian (group by date)
         $dailySales = DB::table('orders')
             ->join('order_product', 'orders.id', '=', 'order_product.order_id')
             ->whereBetween('orders.date', [$startDate, $endDate])
@@ -118,11 +121,10 @@ class OwnerController extends Controller
             ->select('orders.date', DB::raw('SUM(order_product.subtotal) as total_sales'))
             ->get();
 
-        // Penjualan Bulanan (group by month)
         $monthlySales = DB::table('orders')
             ->join('order_product', 'orders.id', '=', 'order_product.order_id')
             ->whereBetween('orders.date', [$startDate, $endDate])
-            ->groupBy(DB::raw('DATE_FORMAT(orders.date, "%Y-%m")')) // 👈 perubahan di sini
+            ->groupBy(DB::raw('DATE_FORMAT(orders.date, "%Y-%m")'))
             ->orderBy(DB::raw('DATE_FORMAT(orders.date, "%Y-%m")'))
             ->select(
                 DB::raw('DATE_FORMAT(orders.date, "%Y-%m") as month'),
@@ -130,16 +132,14 @@ class OwnerController extends Controller
             )
             ->get();
 
-        // Penjualan per Kategori
         $salesByCategory = DB::table('order_product')
             ->join('orders', 'order_product.order_id', '=', 'orders.id')
             ->join('products', 'order_product.product_id', '=', 'products.id')
             ->whereBetween('orders.date', [$startDate, $endDate])
-            ->groupBy('products.category_id')  // asumsikan produk punya kolom category
+            ->groupBy('products.category_id')
             ->select('products.category_id', DB::raw('SUM(order_product.subtotal) as total_sales'))
             ->get();
 
-        // Produk Terlaris
         $topProducts = DB::table('order_product')
             ->join('orders', 'order_product.order_id', '=', 'orders.id')
             ->join('products', 'order_product.product_id', '=', 'products.id')
@@ -174,12 +174,18 @@ class OwnerController extends Controller
         return view('owner.laporan_penjualan', compact('orders', 'startDate', 'endDate', 'stats'));
     }
 
+    /**
+     * Halaman laporan pesanan
+     */
     public function index2()
     {
         $orders = Order::orderBy('id', 'desc')->get();
         return view('owner.laporan_pesanan', compact('orders'));
     }
 
+    /**
+     * Halaman data produk (view only untuk owner)
+     */
     public function index3()
     {
         $products = Product::orderBy('name', 'asc')->get();
@@ -187,24 +193,25 @@ class OwnerController extends Controller
         return view('owner.data_produk', compact('products', 'categories'));
     }
 
+    /**
+     * Detail pesanan dalam laporan
+     */
     public function pesananLaporanDetail($id)
     {
-        // Ambil data pesanan berdasarkan ID
         $order = Order::findOrFail($id);
-
-        // Ambil semua produk dalam pesanan
         $details = Order_Product::where('order_id', $id)->get();
         $identity = Order_Product::where('order_id', $id)->first();
 
-        // Hitung subtotal untuk setiap produk
         foreach ($details as $detail) {
             $detail->subtotal = $detail->quantity * $detail->price;
         }
 
-        // Kirim data ke view admin
         return view('owner.laporan_detail', compact('details', 'identity', 'id'));
     }
 
+    /**
+     * Halaman data pelanggan
+     */
     public function index4()
     {
         $user = User::where('role', '=', 'customer')
@@ -213,6 +220,9 @@ class OwnerController extends Controller
         return view('owner.data_pelanggan', compact('user'));
     }
 
+    /**
+     * Halaman data admin
+     */
     public function index5()
     {
         $user = User::where('role', '=', 'admin')
@@ -221,6 +231,9 @@ class OwnerController extends Controller
         return view('owner.data_admin', compact('user'));
     }
 
+    /**
+     * Laporan penjualan detail dengan filter kategori & perbandingan periode
+     */
     public function laporan_penjualan(Request $request)
     {
         $startDate = $request->input('from_date', now()->subDays(30)->toDateString());
@@ -230,10 +243,10 @@ class OwnerController extends Controller
             return redirect()->back()->withErrors(['date' => 'Tanggal awal tidak boleh lebih besar dari tanggal akhir']);
         }
 
-        // Data yang sudah ada
         $totalSales = Order::byDateRange($startDate, $endDate)->byStatus('dibayar')->sum('total_price');
         $orderCount = Order::byDateRange($startDate, $endDate)->byStatus('dibayar')->count();
         $avgOrderValue = $orderCount ? $totalSales / $orderCount : 0;
+
         $dailySales = Order::byDateRange($startDate, $endDate)
             ->byStatus('dibayar')
             ->selectRaw('DATE(date) as sale_date, SUM(total_price) as total')
@@ -241,6 +254,7 @@ class OwnerController extends Controller
             ->orderBy('sale_date')
             ->pluck('total', 'sale_date')
             ->toArray();
+
         $topProducts = Order_Product::whereHas('order', function ($query) use ($startDate, $endDate) {
             $query->byDateRange($startDate, $endDate)->byStatus('dibayar');
         })
@@ -250,13 +264,13 @@ class OwnerController extends Controller
             ->orderByDesc('total_quantity')
             ->limit(5)
             ->get();
+
         $statusDistribution = Order::byDateRange($startDate, $endDate)
             ->selectRaw('status, COUNT(*) as count')
             ->groupBy('status')
             ->pluck('count', 'status')
             ->toArray();
 
-        // Tambahan: Penjualan per Kategori
         $salesByCategory = Order_Product::whereHas('order', function ($query) use ($startDate, $endDate) {
             $query->byDateRange($startDate, $endDate)->byStatus('dibayar');
         })
@@ -267,7 +281,6 @@ class OwnerController extends Controller
             ->pluck('total', 'category')
             ->toArray();
 
-        // Tambahan: Tren Bulanan
         $monthlySales = Order::byDateRange($startDate, $endDate)
             ->byStatus('dibayar')
             ->selectRaw("DATE_FORMAT(date, '%Y-%m') as month, SUM(total_price) as total")
@@ -276,7 +289,6 @@ class OwnerController extends Controller
             ->pluck('total', 'month')
             ->toArray();
 
-        // Tambahan: Perbandingan Periode Sebelumnya
         $prevStartDate = Carbon::parse($startDate)->subDays(Carbon::parse($endDate)->diffInDays($startDate) + 1)->toDateString();
         $prevEndDate = Carbon::parse($startDate)->subDay()->toDateString();
         $prevTotalSales = Order::byDateRange($prevStartDate, $prevEndDate)->byStatus('dibayar')->sum('total_price');
@@ -296,6 +308,10 @@ class OwnerController extends Controller
 
         return view('owner.cetak_laporan_penjualan', compact('stats', 'startDate', 'endDate'));
     }
+
+    /**
+     * DataTable: Pesanan dengan filter tanggal (AJAX)
+     */
     public function pesananLaporan(Request $request)
     {
         if (request()->ajax()) {
@@ -314,9 +330,7 @@ class OwnerController extends Controller
                 })
                 ->addIndexColumn()
                 ->editColumn('status', function ($data) {
-
                     if ($data->status == 'belum bayar') {
-                        // return '<img src=" '.url($data->status).' "/>';
                         return '<button type="button" class="btn bg-maroon">' . $data->status . '</button>';
                     } elseif ($data->status == 'menunggu verifikasi') {
                         return '<button type="button" class="btn bg-orange">' . $data->status . '</button>';
@@ -332,6 +346,10 @@ class OwnerController extends Controller
                 ->rawColumns(['status', 'action', 'total_price', 'number'])->make(true);
         }
     }
+
+    /**
+     * DataTable: Produk owner (read-only)
+     */
     public function produkOwner()
     {
         $data = Product::join('categories', 'products.category_id', '=', 'categories.id')
@@ -351,16 +369,18 @@ class OwnerController extends Controller
             })
             ->editColumn('stoks', function ($data) {
                 if ($data->stoks == 0) {
-                    $actiona = '<a href="#' . route('change.stoks', $data->id) . '" class="btn btn-xs btn-danger" >Habis</a>';
+                    return '<span class="btn btn-xs btn-danger">Habis</span>';
                 } else {
-                    $actiona = '<a href="#' . route('change.stoks', $data->id) . '" class="btn btn-xs btn-primary" >Ada</a>';
+                    return '<span class="btn btn-xs btn-primary">Ada</span>';
                 }
-                return $actiona;
             })
             ->rawColumns(['image', 'stoks'])
             ->make(true);
     }
 
+    /**
+     * DataTable: Data pelanggan (AJAX)
+     */
     public function pelangganOwner()
     {
         $data = User::where('role', '=', 'customer')
@@ -370,6 +390,9 @@ class OwnerController extends Controller
         return Datatables::of($data)->make(true);
     }
 
+    /**
+     * DataTable: Data admin (AJAX)
+     */
     public function adminOwner()
     {
         $data = User::where('role', '=', 'admin')
@@ -379,37 +402,45 @@ class OwnerController extends Controller
         return Datatables::of($data)->make(true);
     }
 
+    /**
+     * Tambah admin baru
+     */
     public function storeAdmin(Request $r)
     {
-        // validasi input
         $r->validate([
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
         ]);
-        // simpan user dengan role admin
         User::create([
             'name'     => $r->name,
             'email'    => $r->email,
             'password' => Hash::make($r->password),
             'role'     => 'admin',
         ]);
-        // redirect kembali dengan notifikasi   
         return back()->with('success', 'Admin baru berhasil dibuat');
     }
 
+    /**
+     * Halaman cetak laporan penjualan
+     */
     public function penjualan_cetak()
     {
         $category = Category::get();
         return view('owner.cetak_laporan_penjualan', compact('category'));
     }
 
+    /**
+     * Halaman cetak laporan pesanan
+     */
     public function pesanan_cetak()
     {
-        // dd('tes');
         return view('owner.cetak_laporan_pesanan');
     }
 
+    /**
+     * Pencarian laporan penjualan tercetak dengan filter kategori, produk, tanggal
+     */
     public function cari(Request $request)
     {
         $produk = Category::all();
@@ -430,6 +461,7 @@ class OwnerController extends Controller
                 'orders.status'
             )
             ->where('orders.status', '=', 'dibayar');
+
         if ($category != '---Pilih Kategori---') {
             $orders = $orders->where('products.category_id', '=', $category);
             $sum = $orders->where('products.category_id', '=', $category)
@@ -466,12 +498,18 @@ class OwnerController extends Controller
         ));
     }
 
+    /**
+     * AJAX: Get produk berdasarkan kategori (untuk dropdown)
+     */
     public function kategori(Request $request)
     {
         $category = Product::where("category_id", $request->category_id)->pluck('id', 'name');
         return response()->json($category);
     }
 
+    /**
+     * Pencarian laporan pesanan tercetak dengan filter nama & tanggal
+     */
     public function cari2(Request $request)
     {
         $start_date = Carbon::parse($request->start_date)->toDateTimeString();
@@ -488,6 +526,7 @@ class OwnerController extends Controller
                 'order_product.quantity'
             )
             ->where('status', '=', 'dibayar');
+
         if (!empty($name)) {
             $orders = $orders->where('receiver', '=', $name);
             $sum = $orders->where('receiver', '=', $name)
@@ -502,5 +541,13 @@ class OwnerController extends Controller
             'owner.new_laporan_tercetak_pemesanan',
             compact('orders', 'start_date', 'end_date')
         );
+    }
+
+    /**
+     * DataTable: Data penjualan laporan (AJAX)
+     */
+    public function penjualanLaporan()
+    {
+        // Placeholder — this method is called from owner routes for datatables
     }
 }

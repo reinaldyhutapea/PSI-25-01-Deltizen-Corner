@@ -44,10 +44,9 @@
                             <td>{{ $no++ }}</td>
                             <td> {{ $category->name }}</td>
                             <td>
-                                <form action="{{ route('category.destroy', ['id' => $category->id]) }}" method="get" onsubmit="return confirm('Delete this posts permanently ?')">
+                                <form action="{{ route('category.destroy', ['id' => $category->id]) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus kategori ini?')">
                                     @csrf
-                                 
-                                    {{-- <input type="submit" class="btn bg-red-active"> --}}
+                                    @method('DELETE')
                                     <button type="submit" style="background-color: red;padding: 8px;border-radius: 5px;color:white;">Delete</button>
                                 </form>
                             </td>

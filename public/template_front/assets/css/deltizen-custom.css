@@ -1,0 +1,284 @@
+/* =============================================
+   DELTIZEN CORNER — Custom Styles
+   Extends the Yummy template (main.css)
+   ============================================= */
+
+/* ===== TEXT UTILITIES ===== */
+.text-accent {
+    color: var(--accent-color);
+}
+
+/* ===== HERO SECTION ENHANCEMENT ===== */
+.hero h1 span.text-accent {
+    display: inline;
+    font-family: var(--heading-font);
+}
+
+.btn-outline-custom {
+    background: transparent !important;
+    border: 2px solid var(--accent-color) !important;
+    color: var(--accent-color) !important;
+}
+
+.btn-outline-custom:hover {
+    background: var(--accent-color) !important;
+    color: var(--contrast-color) !important;
+}
+
+/* ===== FEATURE CARDS (Keunggulan) ===== */
+.feature-card {
+    background: var(--surface-color);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(206, 18, 18, 0.12);
+}
+
+.feature-card h3 {
+    font-family: var(--default-font);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--heading-color);
+}
+
+.feature-card p {
+    font-size: 0.95rem;
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+/* ===== PRODUCT CARDS (Promo) ===== */
+.product-card {
+    background: var(--surface-color);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+
+.product-card .menu-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover .menu-img {
+    transform: scale(1.05);
+}
+
+.product-card-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.product-card-body h4 {
+    font-family: var(--default-font);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--heading-color);
+    margin-bottom: 0.3rem;
+}
+
+.product-card-body .ingredients {
+    font-size: 0.85rem;
+    color: #6c757d;
+    flex-grow: 1;
+}
+
+.product-card-body .price {
+    font-family: var(--default-font);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+/* Add to Cart Button */
+.btn-add-cart {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 24px;
+    background: var(--accent-color);
+    color: var(--contrast-color);
+    border: none;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(206, 18, 18, 0.25);
+}
+
+.btn-add-cart:hover {
+    background: color-mix(in srgb, var(--accent-color), black 15%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(206, 18, 18, 0.35);
+}
+
+.btn-add-cart:active {
+    transform: translateY(0);
+}
+
+/* ===== STEP CARDS (Cara Pesan) ===== */
+.step-card {
+    background: var(--surface-color);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.step-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(206, 18, 18, 0.1);
+}
+
+.step-number {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 60px;
+    height: 60px;
+    background: var(--accent-color);
+    color: var(--contrast-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    opacity: 0.12;
+    font-family: var(--default-font);
+}
+
+.step-card h4 {
+    font-family: var(--default-font);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--heading-color);
+}
+
+.step-card p {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+/* ===== ABOUT SECTION IMAGE MOSAIC ===== */
+.about-img img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.about-img img:hover {
+    transform: scale(1.03);
+}
+
+/* ===== SEARCH BAR IMPROVEMENT (Menu Page) ===== */
+.search-bar {
+    max-width: 500px;
+    margin: 0 auto 2rem;
+}
+
+.search-bar .form-control {
+    border-radius: 50px 0 0 50px;
+    border: 2px solid #e0e0e0;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease;
+}
+
+.search-bar .form-control:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(206, 18, 18, 0.1);
+}
+
+.search-bar .btn {
+    border-radius: 0 50px 50px 0;
+    background: var(--accent-color);
+    color: var(--contrast-color);
+    padding: 12px 24px;
+    border: none;
+}
+
+.search-bar .btn:hover {
+    background: color-mix(in srgb, var(--accent-color), black 15%);
+}
+
+/* ===== RESPONSIVE FIXES ===== */
+@media (max-width: 768px) {
+    .feature-card,
+    .step-card {
+        margin-bottom: 1rem;
+    }
+
+    .product-card .menu-img {
+        height: 180px;
+    }
+
+    .about-img img {
+        height: 160px;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .product-card .menu-img {
+        height: 150px;
+    }
+}
+
+/* ===== NOTIFICATION TOAST ===== */
+.toast-success {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 9999;
+    background: #28a745;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}

@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
-    protected $guarded = [];
     protected $table = 'orders';
-    protected $fillable = ['receiver', 'address', 'total_price', 'date', 'status', 'detail_status', 'catatan', 'user_id'];
+    protected $fillable = ['receiver', 'address', 'total_price', 'date', 'status', 'detail_status', 'catatan', 'user_id', 'visitor_id', 'pickup_time'];
 
     public static $deliveryStatuses = [
         'menunggu konfirmasi pembayaran',

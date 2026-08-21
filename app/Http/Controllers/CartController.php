@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Order_Product;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 
@@ -18,13 +19,27 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
+        $request->validate([
+            'id' => 'required|integer|exists:products,id',
+            'quantity' => 'required|integer|min:1|max:100',
+        ]);
+
+        // SECURITY: Ambil data produk dari database, BUKAN dari request
+        $product = Product::findOrFail($request->id);
+
+        // Cek apakah produk tersedia (stoks = 1)
+        if ($product->stoks == 0) {
+            session()->flash('error', 'Maaf, produk ini sedang tidak tersedia.');
+            return redirect()->back();
+        }
+
         \Cart::add([
-            'id' => $request->id,
-            'name' => $request->name,
-            'price' => $request->price,
+            'id' => $product->id,
+            'name' => $product->name,
+            'price' => $product->price, // Harga dari DATABASE, bukan dari form
             'quantity' => $request->quantity,
             'attributes' => [
-                'image' => $request->image,
+                'image' => $product->image,
             ]
         ]);
 
@@ -76,7 +91,6 @@ class CartController extends Controller
 
     public function bayar(Request $request)
     {
-        // dd($request);
         $request->validate([
             'name' => 'required|string|max:50',
             'address' => 'required|string|max:255',

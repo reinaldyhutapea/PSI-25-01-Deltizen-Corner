@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Confirm extends Model
 {
     use HasFactory;
-    protected $guarded = [];
     protected $table = 'confirms';
+    protected $fillable = ['order_id', 'user_id', 'visitor_id', 'image', 'status_order'];
 
     public function user()
     {

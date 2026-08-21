@@ -32,20 +32,8 @@ class CategoryController extends Controller{
         return redirect()->route('category.index')->with('status', 'Kategori berhasil ditambah.');
     }
 
-    // public function edit($id){
-    //     $title = 'Edit Kategori';
-    //     $category = Category::findOrFail($id);
-    //     return view('categories.edit',compact('category', 'title'));
-    // }
-    // public function update(Request $request, $id){
-    //     $category = Category::findOrFail($id);
-    //     $category->name = $request->get('name');
-    //     $category->update();
 
-    //     return redirect()->back()->with('status','Anda berhasil mengupdate kategori');
 
-    
-    // }
 
     public function destroy($id){
         $category = Category::findOrFail($id);
